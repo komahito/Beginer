@@ -61,7 +61,7 @@ public class CollisionChecker {
         }
         
         if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-            entity.collisionOn = true;
+            //entity.collisionOn = true;
         }
     }
 

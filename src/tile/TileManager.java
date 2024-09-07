@@ -27,7 +27,8 @@ public class TileManager {
 
     public void loadMap(){
         try{
-            FileReader fr = new FileReader(new File(main.Property.res + "/maps/world01.txt"));
+            File f = new File(main.Property.res + "/test/KOMATSUKE_Map.txt");
+            FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
 
             int row = 0;

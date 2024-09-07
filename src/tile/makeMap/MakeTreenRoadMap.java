@@ -49,9 +49,9 @@ public class MakeTreenRoadMap {
 
         width = image.getWidth();
         height = image.getHeight();
-        for (y = 0; y < height; y+=12) {
+        for (y = 0; y < height; y+=6) {
             try{
-                for (x = 0; x < width; x+=12) {
+                for (x = 0; x < width; x+=6) {
                     // (x, y) の色を取得
                     color = image.getRGB(x, y);
 
@@ -65,9 +65,9 @@ public class MakeTreenRoadMap {
 
                     // 2値化
                     if (p < tv) { //BLACK(TREE)
-                        bw.write('0');
+                        bw.write("0 ");
                     } else { // WHITE(SOIL)
-                        bw.write('4');
+                        bw.write("4 ");
                     }
                     
                 }
