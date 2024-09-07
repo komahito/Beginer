@@ -2,18 +2,28 @@ package object;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
+import entity.Entity;
+
 import java.awt.Rectangle;
 
 import main.GamePanel;
 
-public class SuperObject {
+import entity.Player;
+
+public abstract class SuperObject {
     public BufferedImage image;
     public String name;
+    public boolean disappear = true;
     public boolean collision = false;
     public int worldX, worldY;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
+
+    GamePanel gp;
+
+    public abstract void pickedUp (Player player);
 
     public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
