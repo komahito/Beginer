@@ -40,7 +40,7 @@ public class TileManager {
                 String[] numbers = line.split(" ");
                 while (col < gp.maxWorldCol) {
                     int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[col][row] = num;
+                    mapTileNum[row][col] = num;
                     col++;
                 }
 
@@ -93,7 +93,7 @@ public class TileManager {
         int worldCol = 0;
         
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = mapTileNum[worldRow][worldCol];
 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;

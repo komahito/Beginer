@@ -22,12 +22,14 @@ public class OBJ_Door extends SuperObject {
         // tile[0].image = ImageIO.read(new File(main.Property.res + "/tiles/grass01.png"));
 
         collision = true;
+        disappear = false;
     }
 
     public void pickedUp (Player player) {
 
         if (player.hasKey > 0) {
             player.hasKey--;
+            disappear = true;
             gp.ui.showMessage("You opened the door!");
         } else {
             gp.ui.showMessage("You need a key.");
