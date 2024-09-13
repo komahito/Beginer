@@ -33,7 +33,7 @@ public class TileManager {
 
     public void loadMap(){
         try{
-            FileReader fr = new FileReader(new File(main.Property.res + "/test/KOMATSUKE_Map.txt"));
+            FileReader fr = new FileReader(new File(main.Property.res + "/maps/world01.txt"));
             BufferedReader br = new BufferedReader(fr);
 
             br.mark(500000000);
