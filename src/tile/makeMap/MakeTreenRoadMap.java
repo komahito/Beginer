@@ -22,7 +22,7 @@ public class MakeTreenRoadMap {
         // low resolution
         int lr = 2;
         // ファイル名
-        String inname = main.Property.res + "/test/KOMATSUKE.png";
+        String inname = main.Property.res + "/test/KOMATSUKE_Map.png";
         String outnameT = main.Property.res + "/test/KOMATSUKE_Map.txt";
         // 画像格納クラス
         BufferedImage image = null;
