@@ -20,11 +20,6 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-<<<<<<< HEAD
-        tile = new Tile[10];
-        mapTileNum = new int[gp.maxWorldRow][gp.maxWorldCol];
-=======
->>>>>>> makeMapMethod
 
         // PREPARE TILES
         tile = new Tile[10];
