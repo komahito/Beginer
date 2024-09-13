@@ -36,7 +36,7 @@ public class TileManager {
             FileReader fr = new FileReader(new File(main.Property.res + "/test/KOMATSUKE_Map.txt"));
             BufferedReader br = new BufferedReader(fr);
 
-            br.mark(500000);
+            br.mark(500000000);
 
             maxWorldCol = br.readLine().split(" ").length;
             maxWorldRow = (int) br.lines().count();

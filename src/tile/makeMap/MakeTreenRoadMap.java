@@ -1,3 +1,9 @@
+
+/*
+ * Binarization class（2値化）、（ノイズ除去）をlrと同じピクセルのタイルで出力して、ここで1タイル1文字に変換する。
+*/
+
+
 package tile.makeMap;
 
 import java.awt.image.BufferedImage;
@@ -12,10 +18,12 @@ import java.io.IOException;
 public class MakeTreenRoadMap {
     public static void main (String[] args) {
         // しきい値(木にするところ)
-        int tv = 244;
+        int tv = 240;
+        // low resolution
+        int lr = 2;
         // ファイル名
         String inname = main.Property.res + "/test/KOMATSUKE.png";
-        String outname = main.Property.res + "/test/KOMATSUKE_Map.txt";
+        String outnameT = main.Property.res + "/test/KOMATSUKE_Map.txt";
         // 画像格納クラス
         BufferedImage image = null;
         // テキスト格納
@@ -35,7 +43,7 @@ public class MakeTreenRoadMap {
 
         //BufferedWriterのセッティング
         try{
-            bw = new BufferedWriter(new FileWriter(new File(outname)));
+            bw = new BufferedWriter(new FileWriter(new File(outnameT)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,9 +57,9 @@ public class MakeTreenRoadMap {
 
         width = image.getWidth();
         height = image.getHeight();
-        for (y = 0; y < height; y+=6) {
+        for (y = 0; y < height; y+=lr) {
             try{
-                for (x = 0; x < width; x+=6) {
+                for (x = 0; x < width; x+=lr) {
                     // (x, y) の色を取得
                     color = image.getRGB(x, y);
 
