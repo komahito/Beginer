@@ -17,6 +17,7 @@ public class TileManager {
     int maxWorldCol;
     int maxWorldRow;
     public int[][] mapTileNum;
+    String mapName = main.Property.res + "/maps/world01.txt";
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -33,7 +34,7 @@ public class TileManager {
 
     public void loadMap(){
         try{
-            FileReader fr = new FileReader(new File(main.Property.res + "/maps/world01.txt"));
+            FileReader fr = new FileReader(new File(mapName));
             BufferedReader br = new BufferedReader(fr);
 
             br.mark(500000000);

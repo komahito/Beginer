@@ -22,6 +22,6 @@ public class OBJ_Chest extends SuperObject {
     }
 
     public void pickedUp (Player player) {
-        gp.ui.gameFinished = true;
+        gp.gameFinished = true;
     }
 }

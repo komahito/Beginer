@@ -3,6 +3,8 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.Property;
+import object.OBJ_Key;
+import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -10,6 +12,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Player extends Entity {
     GamePanel gp;
@@ -19,6 +22,8 @@ public class Player extends Entity {
     public final int screenY;
 
     public int hasKey = 0;
+    public final int inventorySize = 20;
+    public ArrayList<SuperObject> inventory = new ArrayList<>();
 
     // Gridbased move
     boolean moving = false;
@@ -49,6 +54,12 @@ public class Player extends Entity {
         worldY = gp.tileSize * (gp.maxWorldRow / 2);
         speed = 4;
         direction = "down";
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
     }
 
     public void getPlayerImage() {
@@ -76,8 +87,14 @@ public class Player extends Entity {
     }
 
     public void update() {
+        if (gp.playerState) {
+            walk();
+        }
+    }
+    
+    private void walk () {
         if (!moving){
-            if (keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed){
+            if ((keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed)){
                 if (keyH.upPressed == true) {
                     direction = "up";
                 }
