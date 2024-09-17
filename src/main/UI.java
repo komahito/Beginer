@@ -7,7 +7,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
+import object.OBJ_Chest;
 import object.OBJ_Key;
+import object.SuperObject;
 
 public class UI {
     GamePanel gp;
@@ -32,6 +34,13 @@ public class UI {
     protected int cursorCol = 0;
     protected int cursorRow = 0;
 
+    // INVENTORY Chest
+    OBJ_Chest chest;
+    private final int maxcCursorcol = 5;
+    private final int maxcCursorRow = 4;
+    protected int cCursorCol = 0;
+    protected int cCursorRow = 0;
+
     public UI (GamePanel gp) {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
@@ -46,13 +55,20 @@ public class UI {
         messageOn = true;
     }
 
+    public void showInventory(OBJ_Chest chest){
+        this.chest = chest;
+        cInventoryIni();
+    }
+
     public void draw (Graphics2D g2) {
         this.g2 = g2;
+        g2.setFont(g2.getFont().deriveFont(30F));
+
         if (gp.gameFinished) {
             drawFinish();
         } else {
-            // KEY
-            drawKey();
+            // // KEY
+            // drawKey();
 
             // TIME
             drawTime();
@@ -65,6 +81,12 @@ public class UI {
             // INVENTORY
             if (gp.inventoryState) {
                 drawInventory();
+            }
+
+            // CHEST INVENTORY
+            if (gp.chestState) {
+                drawInventory();
+                drawChestInventory();
             }
         }
     }
@@ -79,7 +101,8 @@ public class UI {
         g2.setStroke(new BasicStroke());
         g2.fillRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
     }
-
+ 
+    // INVENTORY
     public void inventoryIni() {
         cursorCol = 0;
         cursorRow = 0;
@@ -135,9 +158,69 @@ public class UI {
         g2.setStroke(new BasicStroke());
         g2.drawRoundRect(cursorX + 1, cursorY + 1, cursorSize, cursorSize, 10, 10);
     }
+
+    // CHEST INVENTORY
+    public void cInventoryIni() {
+        inventoryIni();
+        cCursorCol = 0;
+        cCursorRow = 0;
+        gp.keyH.invISChest = false;
+    }
+
+    public void pluCCursorCol () {
+        if (cCursorCol < maxcCursorcol - 1) cCursorCol++;
+    }
+
+    public void minCCursorCol () {
+        if (cCursorCol > 0) cCursorCol--;
+    }
+
+    public void pluCCursorRow() {
+        if (cCursorRow < maxcCursorRow - 1) cCursorRow++;
+    }
+
+    public void minCCursorRow () {
+        if (cCursorRow > 0) cCursorRow--;
+    }
+
+    public void drawChestInventory () {
+        final int framX = gp.tileSize * 1;
+        final int framY = gp.tileSize * 7;
+        final int framWidth = gp.tileSize * 14;
+        final int framHeight = gp.tileSize * 5;
+        drawSubwindow(framX, framY, framWidth, framHeight);
+
+        final int slotStartX = framX + 20;
+        final int slotStartY = framY + 20;
+        int slotX = slotStartX;
+        int slotY = slotStartY;
+        int slotSize = gp.tileSize - 4;
+
+        for (int i = 0; i < gp.player.inventory.size(); i++) {
+            g2.drawImage(chest.inventory.get(i).image, slotX + 2, slotY + 2, slotSize, slotSize, null);
+            slotX += gp.tileSize;
+
+            if (i == 12 || i == 25 || i == 38 || i == 51) {
+                slotX = slotStartX;
+                slotY += gp.tileSize;
+            }
+        }
+
+        slotX = slotStartX;
+        slotY = slotStartY;
+
+        int cursorX = slotX + cCursorCol * gp.tileSize;
+        int cursorY = slotY + cCursorRow * gp.tileSize;
+        int cursorSize = gp.tileSize - 2;
+
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke());
+        g2.drawRoundRect(cursorX + 1, cursorY + 1, cursorSize, cursorSize, 10, 10);
+    }
     
     public void drawMessage() {
         g2.setFont(g2.getFont().deriveFont(30F));
+        g2.setColor(Color.white);
         g2.drawString(message, gp.tileSize / 2, gp.tileSize * 5);
 
         messageCounter++;
@@ -152,12 +235,12 @@ public class UI {
         // g2.drawString("Time: " + dFormat.format(playTime), gp.tileSize*11, 65); // I hate to display this for all time...
     }
 
-    public void drawKey() {
-        g2.setFont(arial_40);
-        g2.setColor(Color.WHITE);
-        g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-        g2.drawString("x " + gp.player.hasKey, 74, 65);
-    }
+    // public void drawKey() {
+    //     g2.setFont(arial_40);
+    //     g2.setColor(Color.WHITE);
+    //     g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+    //     g2.drawString("x " + gp.player.hasKey, 74, 65);
+    // }
 
     public void drawFinish () {
         g2.setFont(arial_40);

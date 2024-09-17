@@ -21,7 +21,6 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
-    public int hasKey = 0;
     public final int inventorySize = 20;
     public ArrayList<SuperObject> inventory = new ArrayList<>();
 
@@ -50,16 +49,10 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * (gp.maxWorldCol / 2);
+        worldX = gp.tileSize * (gp.maxWorldCol / 2 - 3);
         worldY = gp.tileSize * (gp.maxWorldRow / 2);
         speed = 4;
         direction = "down";
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
     }
 
     public void getPlayerImage() {
@@ -149,6 +142,13 @@ public class Player extends Entity {
     }
 
     public void pickUpObject (int i) {
+        for (int j = 0; j < gp.objSize; j++) {
+            if (gp.obj[j] != null){
+                if (j == i) {
+                    gp.obj[j].adjFlag = true;
+                } else gp.obj[j].adjFlag = false;
+            }
+        }
         if (i != 999) {
             gp.obj[i].pickedUp(this);
             if (gp.obj[i].disappear){

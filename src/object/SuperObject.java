@@ -23,6 +23,9 @@ public abstract class SuperObject {
 
     GamePanel gp;
 
+    // adjFlag used when collision check in Player class.
+    public boolean adjFlag = false;
+
     public abstract void pickedUp (Player player);
 
     public void draw(Graphics2D g2, GamePanel gp) {

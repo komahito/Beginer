@@ -12,8 +12,15 @@ public class KeyHandler implements KeyListener {
     public boolean rightPressed;
     public boolean leftPressed;
 
+    public boolean cPressed;
+
     // INVENTORY STATE
     public boolean inventoryPressed;
+
+    // CHEST INVENTORY STATE
+    boolean invISChest = false; // false: playerInv, true: chestInv
+    int i = 0;
+
 
     public KeyHandler (GamePanel gp) {
         this.gp = gp;
@@ -28,7 +35,6 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         // INVENTORYSTATE
-
         if (gp.inventoryState) {
             if (code == KeyEvent.VK_W) {
                 gp.ui.minCursorRow();
@@ -42,10 +48,55 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_D) {
                 gp.ui.pluCursorCol();
             }
+            if (code == KeyEvent.VK_C) {
+                gp.inventoryState = false;
+                gp.playerState = true;
+            }
         }
 
+        // CHESTSTATE
+        else if (gp.chestState) {
+            if (code == KeyEvent.VK_ENTER) {
+                gp.chestState = false;
+                gp.playerState = true;
+            }
+            if (code == KeyEvent.VK_C) {
+                if (invISChest) invISChest = false;
+                else invISChest = true;
+            }
+            if (!invISChest /*player's inv*/){
+                if (code == KeyEvent.VK_W) {
+                    gp.ui.minCursorRow();
+                }
+                if (code == KeyEvent.VK_S) {
+                    gp.ui.pluCursorRow();
+                }
+                if (code == KeyEvent.VK_A) {
+                    gp.ui.minCursorCol();
+                }
+                if (code == KeyEvent.VK_D) {
+                    gp.ui.pluCursorCol();
+                }
+            } else {
+                if (code == KeyEvent.VK_W) {
+                    gp.ui.minCCursorRow();
+                }
+                if (code == KeyEvent.VK_S) {
+                    gp.ui.pluCCursorRow();
+                }
+                if (code == KeyEvent.VK_A) {
+                    gp.ui.minCCursorCol();
+                }
+                if (code == KeyEvent.VK_D) {
+                    gp.ui.pluCCursorCol();
+                }
+            }
+        
+            
+        }        
+
         // PLAYERSTATE
-        if (gp.playerState){
+        else if (gp.playerState){
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
             }
@@ -58,17 +109,22 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_D) {
                 rightPressed = true;
             }
-        }
 
-        if (code == KeyEvent.VK_C) {
-            if (!gp.inventoryState) {
+            if (code == KeyEvent.VK_C) {
                 gp.inventoryState = true;
                 gp.ui.inventoryIni();
                 gp.playerState = false;
             }
-            else {
-                gp.inventoryState = false;
-                gp.playerState = true;
+
+            // pickup object
+            if (code == KeyEvent.VK_ENTER){
+                for (int i = 0; i < gp.objSize; i++) {
+                    if (gp.obj[i] != null && gp.obj[i].adjFlag) {
+                        gp.playerState = false;
+                        gp.chestState = true;
+                        gp.ui.cInventoryIni();
+                    }
+                }
             }
         }
     }
