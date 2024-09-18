@@ -7,6 +7,7 @@ import tile.TileManager;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.awt.Dimension;
 import java.awt.Color;
 
@@ -39,8 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
-    public int objSize = 20;
-    public SuperObject[] obj = new SuperObject[objSize];
+    public ArrayList<SuperObject> obj = new ArrayList<>();
 
     // STATE
     public boolean gameFinished = false;
@@ -108,10 +108,8 @@ public class GamePanel extends JPanel implements Runnable {
         tileM.draw(g2);
         
         // OBJECT
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
-            }
+        for (int i = 0; i < obj.size(); i++) {
+            obj.get(i).draw(g2, this);
         }
 
         // PLAYER

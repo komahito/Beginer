@@ -159,17 +159,15 @@ public class Player extends Entity implements Inventory{
     }
 
     public void pickUpObject (int i) {
-        for (int j = 0; j < gp.objSize; j++) {
-            if (gp.obj[j] != null){
+        for (int j = 0; j < gp.obj.size(); j++) {
                 if (j == i) {
-                    gp.obj[j].adjFlag = true;
-                } else gp.obj[j].adjFlag = false;
-            }
+                    gp.obj.get(j).adjFlag = true;
+                } else gp.obj.get(j).adjFlag = false;
         }
         if (i != 999) {
-            gp.obj[i].pickedUp(this);
-            if (gp.obj[i].disappear){
-                gp.obj[i] = null;
+            gp.obj.get(i).pickedUp(this);
+            if (gp.obj.get(i).disappear){
+                gp.obj.remove(i);
             }
         }
     }
