@@ -36,7 +36,7 @@ public class UI {
 
     // INVENTORY Chest
     OBJ_Chest chest;
-    private final int maxcCursorcol = 5;
+    private final int maxcCursorCol = 13;
     private final int maxcCursorRow = 4;
     protected int cCursorCol = 0;
     protected int cCursorRow = 0;
@@ -48,16 +48,6 @@ public class UI {
 
         OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
-    }
-
-    public void showMessage(String text) {
-        message = text;
-        messageOn = true;
-    }
-
-    public void showInventory(OBJ_Chest chest){
-        this.chest = chest;
-        cInventoryIni();
     }
 
     public void draw (Graphics2D g2) {
@@ -127,8 +117,8 @@ public class UI {
     private void drawInventory() {
         final int framX = gp.tileSize * 9;
         final int framY = gp.tileSize;
-        final int framWidth = gp.tileSize * 6;
-        final int framHeight = gp.tileSize * 5;
+        final int framWidth = gp.tileSize * (this.maxCursorcol + 1);
+        final int framHeight = gp.tileSize * (this.maxCursorRow + 1);
         drawSubwindow(framX, framY, framWidth, framHeight);
 
         final int slotStartX = framX + 20;
@@ -160,7 +150,26 @@ public class UI {
     }
 
     // CHEST INVENTORY
-    public void cInventoryIni() {
+    private int getInventoryIndexOfSlot () {
+        return cursorCol + maxCursorcol * cursorRow;
+    }
+
+    private int getCInventoryIndexOfSlot () {
+        return cCursorCol + maxcCursorCol * cCursorRow;
+    }
+    
+    public void storeInChest () {
+        SuperObject obj = gp.player.takeObject(getInventoryIndexOfSlot());
+        if (obj != null) chest.addObject(obj);
+    }
+
+    public void takoutFromChest () {
+        SuperObject obj = chest.takeObject(getCInventoryIndexOfSlot());
+        if (obj != null) gp.player.addObject(obj);
+    }
+
+    public void cInventoryIni(OBJ_Chest chest) {
+        this.chest = chest;
         inventoryIni();
         cCursorCol = 0;
         cCursorRow = 0;
@@ -168,7 +177,7 @@ public class UI {
     }
 
     public void pluCCursorCol () {
-        if (cCursorCol < maxcCursorcol - 1) cCursorCol++;
+        if (cCursorCol < maxcCursorCol - 1) cCursorCol++;
     }
 
     public void minCCursorCol () {
@@ -186,8 +195,8 @@ public class UI {
     public void drawChestInventory () {
         final int framX = gp.tileSize * 1;
         final int framY = gp.tileSize * 7;
-        final int framWidth = gp.tileSize * 14;
-        final int framHeight = gp.tileSize * 5;
+        final int framWidth = gp.tileSize * (this.maxcCursorCol + 1);
+        final int framHeight = gp.tileSize * (this.maxcCursorRow + 1);
         drawSubwindow(framX, framY, framWidth, framHeight);
 
         final int slotStartX = framX + 20;
@@ -196,7 +205,7 @@ public class UI {
         int slotY = slotStartY;
         int slotSize = gp.tileSize - 4;
 
-        for (int i = 0; i < gp.player.inventory.size(); i++) {
+        for (int i = 0; i < chest.inventory.size(); i++) {
             g2.drawImage(chest.inventory.get(i).image, slotX + 2, slotY + 2, slotSize, slotSize, null);
             slotX += gp.tileSize;
 
@@ -218,6 +227,7 @@ public class UI {
         g2.drawRoundRect(cursorX + 1, cursorY + 1, cursorSize, cursorSize, 10, 10);
     }
     
+    // NO USE
     public void drawMessage() {
         g2.setFont(g2.getFont().deriveFont(30F));
         g2.setColor(Color.white);
@@ -230,17 +240,15 @@ public class UI {
         }
     }
 
+    public void showMessage(String text) {
+        message = text;
+        messageOn = true;
+    }
+
     public void drawTime() {
         playTime += (double) 1/60;
         // g2.drawString("Time: " + dFormat.format(playTime), gp.tileSize*11, 65); // I hate to display this for all time...
     }
-
-    // public void drawKey() {
-    //     g2.setFont(arial_40);
-    //     g2.setColor(Color.WHITE);
-    //     g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-    //     g2.drawString("x " + gp.player.hasKey, 74, 65);
-    // }
 
     public void drawFinish () {
         g2.setFont(arial_40);

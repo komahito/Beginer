@@ -10,7 +10,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
 import entity.Player;
 import main.GamePanel;
 
-public class OBJ_Chest extends SuperObject {
+public class OBJ_Chest extends SuperObject implements Inventory {
     KeyHandler keyH;
 
     public final int inventorySize = 13 * 4;
@@ -29,6 +29,19 @@ public class OBJ_Chest extends SuperObject {
     }
 
     public void pickedUp (Player player) {
-        
+    }
+
+    public boolean addObject (SuperObject obj) {
+        if (inventory.size() < inventorySize) {
+            inventory.add(obj);
+            return true;
+        } else return false;
+    }
+    public SuperObject takeObject (int index) {
+        if (!inventory.isEmpty()) {
+            SuperObject obj = inventory.get(index);
+            inventory.remove(index);
+            return obj;
+        } else return null;
     }
 }

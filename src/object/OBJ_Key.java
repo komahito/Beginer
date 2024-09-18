@@ -23,7 +23,12 @@ public class OBJ_Key extends SuperObject {
     }
 
     public void pickedUp (Player player) {
-        gp.ui.showMessage("You got a key!");
-        player.inventory.add(this);
+        disappear = true;
+        boolean success = player.addObject(this);
+        if (success) {
+            gp.ui.showMessage("You got a key!");
+        } else {
+            disappear = false;
+        }
     }
 }

@@ -3,6 +3,8 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import object.OBJ_Chest;
+
 public class KeyHandler implements KeyListener {
     private GamePanel gp;
 
@@ -48,7 +50,7 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_D) {
                 gp.ui.pluCursorCol();
             }
-            if (code == KeyEvent.VK_C) {
+            if (code == KeyEvent.VK_E) {
                 gp.inventoryState = false;
                 gp.playerState = true;
             }
@@ -77,6 +79,9 @@ public class KeyHandler implements KeyListener {
                 if (code == KeyEvent.VK_D) {
                     gp.ui.pluCursorCol();
                 }
+                if (code == KeyEvent.VK_SPACE) {
+                    gp.ui.storeInChest();
+                }
             } else {
                 if (code == KeyEvent.VK_W) {
                     gp.ui.minCCursorRow();
@@ -89,6 +94,9 @@ public class KeyHandler implements KeyListener {
                 }
                 if (code == KeyEvent.VK_D) {
                     gp.ui.pluCCursorCol();
+                }
+                if (code == KeyEvent.VK_SPACE) {
+                    gp.ui.takoutFromChest();
                 }
             }
         
@@ -110,7 +118,7 @@ public class KeyHandler implements KeyListener {
                 rightPressed = true;
             }
 
-            if (code == KeyEvent.VK_C) {
+            if (code == KeyEvent.VK_E) {
                 gp.inventoryState = true;
                 gp.ui.inventoryIni();
                 gp.playerState = false;
@@ -120,9 +128,11 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER){
                 for (int i = 0; i < gp.objSize; i++) {
                     if (gp.obj[i] != null && gp.obj[i].adjFlag) {
-                        gp.playerState = false;
-                        gp.chestState = true;
-                        gp.ui.cInventoryIni();
+                        if (gp.obj[i].name == "Chest"){
+                            gp.playerState = false;
+                            gp.chestState = true;
+                            gp.ui.cInventoryIni((OBJ_Chest) gp.obj[i]);
+                        }
                     }
                 }
             }

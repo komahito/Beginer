@@ -3,6 +3,7 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.Property;
+import object.OBJ_Chest;
 import object.OBJ_Key;
 import object.SuperObject;
 
@@ -13,8 +14,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import object.Inventory;
 
-public class Player extends Entity {
+public class Player extends Entity implements Inventory{
     GamePanel gp;
     KeyHandler keyH;
 
@@ -139,6 +141,21 @@ public class Player extends Entity {
                 pixelCounter = 0;
             }
         }
+    }
+
+    public boolean addObject (SuperObject obj) {
+        if (inventory.size() < inventorySize){
+            inventory.add(obj);
+            return true;
+        } else return false;
+    }
+
+    public SuperObject takeObject (int index) {
+        if (!inventory.isEmpty()) {
+            SuperObject obj = inventory.get(index);
+            inventory.remove(index);
+            return obj;
+        } else return null;
     }
 
     public void pickUpObject (int i) {

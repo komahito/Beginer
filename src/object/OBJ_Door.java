@@ -28,13 +28,14 @@ public class OBJ_Door extends SuperObject {
     public void pickedUp (Player player) {
         for (int i = 0; i < player.inventory.size(); i++) {
             if (player.inventory.get(i).name == "Key") {
-                player.inventory.remove(i);
+                SuperObject key = player.takeObject(i);
                 disappear = true;
                 gp.ui.showMessage("Used a key. You opened the door!");
                 return;
             }
-            gp.ui.showMessage("You need a key.");
         }
+    
+        gp.ui.showMessage("You need a key.");
 
     }
     
