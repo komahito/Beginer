@@ -1,7 +1,6 @@
 package object;
 
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 import entity.Entity;
@@ -19,7 +18,6 @@ public class OBJ_Key extends SuperObject {
         } catch (IOException e){
             e.printStackTrace();
         }
-        // tile[0].image = ImageIO.read(new File(main.Property.res + "/tiles/grass01.png"));
     }
 
     public void pickedUp (Player player) {
