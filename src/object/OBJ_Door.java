@@ -25,7 +25,7 @@ public class OBJ_Door extends SuperObject {
         disappear = false;
     }
 
-    public void pickedUp (Player player) {
+    public void interacted (Player player) {
         for (int i = 0; i < player.inventory.size(); i++) {
             if (player.inventory.get(i).name == "Key") {
                 SuperObject key = player.takeObject(i);

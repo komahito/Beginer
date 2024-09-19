@@ -28,7 +28,7 @@ public class OBJ_Chest extends SuperObject implements Inventory {
         }
     }
 
-    public void pickedUp (Player player) {
+    public void interacted (Player player) {
     }
 
     public boolean addObject (SuperObject obj) {

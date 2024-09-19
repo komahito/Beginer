@@ -3,6 +3,8 @@ package tile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.Graphics2D;
@@ -16,23 +18,32 @@ public class TileManager {
     public Tile[] tile;
     int maxWorldCol;
     int maxWorldRow;
-    public int[][] mapTileNum;
-    String mapName = main.Property.res + "/maps/world01.txt";
+    public int[][][] mapTileNum;
+    String mapName0 = main.Property.res + "/maps/world01.txt";
+    String mapName1 = main.Property.res + "/maps/interior01.txt";
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
+        this.mapTileNum = new int[gp.maxMapNum][][];
 
         // PREPARE TILES
         tile = new Tile[10];
         getTileImage();
 
         // MAKE mapTileNum matrix
-        loadMap();
+        loadMap(0, mapName0);
+        loadMap(1, mapName1);
         gp.maxWorldCol = this.maxWorldCol;
         gp.maxWorldRow = this.maxWorldRow;
     }
+    
+    public void changeMap(int mapNum) {
+        gp.currentMapNum = mapNum;
+        gp.maxWorldRow = mapTileNum[mapNum].length;
+        gp.maxWorldCol = mapTileNum[mapNum][0].length;
+    }
 
-    public void loadMap(){
+    public void loadMap(int mapNum, String mapName){
         try{
             FileReader fr = new FileReader(new File(mapName));
             BufferedReader br = new BufferedReader(fr);
@@ -41,7 +52,7 @@ public class TileManager {
 
             maxWorldCol = br.readLine().split(" ").length;
             maxWorldRow = (int) br.lines().count();
-            mapTileNum = new int[maxWorldRow][maxWorldCol];
+            mapTileNum[mapNum] = new int[maxWorldRow][maxWorldCol];
 
             int row = 0;
             int col = 0;
@@ -52,7 +63,7 @@ public class TileManager {
                 String[] numbers = line.split(" ");
                 while (col < maxWorldCol) {
                     int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[row][col] = num;
+                    mapTileNum[mapNum][row][col] = num;
                     col++;
                 }
 
@@ -105,7 +116,7 @@ public class TileManager {
         int worldCol = 0;
         
         while (worldCol < maxWorldCol && worldRow < maxWorldRow) {
-            int tileNum = mapTileNum[worldRow][worldCol];
+            int tileNum = mapTileNum[gp.currentMapNum][worldRow][worldCol];
 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;

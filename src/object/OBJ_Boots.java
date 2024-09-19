@@ -9,7 +9,7 @@ import entity.Player;
 
 import main.GamePanel;
 
-public class OBJ_Boots extends SuperObject {
+public class OBJ_Boots extends SuperObject implements Movable {
     public OBJ_Boots (GamePanel gp) {
         this.gp = gp;
         name = "Boots";
@@ -21,8 +21,17 @@ public class OBJ_Boots extends SuperObject {
         // tile[0].image = ImageIO.read(new File(main.Property.res + "/tiles/grass01.png"));
     }
 
+    public void interacted (Player player) {
+        pickedUp(player);
+    }
+
     public void pickedUp (Player player) {
-        player.speed += 2;
-        gp.ui.showMessage("Speed up!");
+        disappear = true;
+        if (!player.addObject(this)) {
+            disappear = false;
+        } else {            
+            player.speed += 2;
+            gp.ui.showMessage("You got a " + name +"!");
+        }
     }
 }

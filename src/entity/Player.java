@@ -109,7 +109,7 @@ public class Player extends Entity implements Inventory{
 
                 // CHECK OBJECT COLLISIOM
                 int objIndex = gp.cChecker.checkObject(this, true);
-                pickUpObject(objIndex);
+                interactObject(objIndex);
 
                 moving = true;
             }
@@ -158,16 +158,16 @@ public class Player extends Entity implements Inventory{
         } else return null;
     }
 
-    public void pickUpObject (int i) {
-        for (int j = 0; j < gp.obj.size(); j++) {
+    public void interactObject (int i) {
+        for (int j = 0; j < gp.aSetter.getSize(); j++) {
                 if (j == i) {
-                    gp.obj.get(j).adjFlag = true;
-                } else gp.obj.get(j).adjFlag = false;
+                    gp.aSetter.getObj(j).adjFlag = true;
+                } else gp.aSetter.getObj(j).adjFlag = false;
         }
         if (i != 999) {
-            gp.obj.get(i).pickedUp(this);
-            if (gp.obj.get(i).disappear){
-                gp.obj.remove(i);
+            gp.aSetter.getObj(i).interacted(this);
+            if (gp.aSetter.getObj(i).disappear){
+                gp.aSetter.removeObj(i);
             }
         }
     }
