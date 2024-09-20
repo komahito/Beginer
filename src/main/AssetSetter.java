@@ -2,6 +2,7 @@ package main;
 
 import object.OBJ_Door;
 import object.OBJ_House;
+import object.OBJ_HouseDoor;
 import object.OBJ_Key;
 import object.SuperObject;
 
@@ -14,6 +15,7 @@ import object.OBJ_Chest;
 public class AssetSetter {
     GamePanel gp;
     private ArrayList<ArrayList<SuperObject>> objs;
+
     
     public AssetSetter (GamePanel gp) {
         this.gp = gp;
@@ -23,6 +25,10 @@ public class AssetSetter {
         }
     }
 
+    public ArrayList<SuperObject> currentObjs() {
+        return objs.get(gp.currentMapNum);
+    }
+    
     public SuperObject getObj(int index) {
         return this.objs.get(gp.currentMapNum).get(index);
     }
@@ -59,5 +65,15 @@ public class AssetSetter {
         house.worldX = 33 * gp.tileSize;
         house.worldY = 7 * gp.tileSize;
         objs.get(gp.currentMapNum).add(house);
+
+        chest = new OBJ_Chest(gp);
+        chest.worldX = 13 * gp.tileSize;
+        chest.worldY = 9 * gp.tileSize;
+        objs.get(1).add(chest);
+
+        OBJ_HouseDoor houseDoor = new OBJ_HouseDoor(gp);
+        houseDoor.worldX = 15 * gp.tileSize;
+        houseDoor.worldY = 10 * gp.tileSize;
+        objs.get(1).add(houseDoor);
     }
 }

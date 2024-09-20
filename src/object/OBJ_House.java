@@ -7,8 +7,9 @@ import javax.imageio.ImageIO;
 
 import entity.Player;
 import main.GamePanel;
+import tile.TileManager;
 
-public class OBJ_House extends SuperObject implements tile.ChangeMap {
+public class OBJ_House extends SuperObject {
     GamePanel gp;
 
     public OBJ_House (GamePanel gp) {
@@ -25,9 +26,6 @@ public class OBJ_House extends SuperObject implements tile.ChangeMap {
     }
 
     public void interacted (Player player) {
-        changeMap(1);
-    }
-
-    public void changeMap (int mapIndex) {
+        gp.tileM.changeMap(1);
     }
 }

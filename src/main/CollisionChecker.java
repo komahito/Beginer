@@ -22,35 +22,37 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
+        int mapNum = gp.currentMapNum;
+
         switch (entity.direction) {
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
 
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMapNum][entityTopRow][entityLeftCol];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMapNum][entityTopRow][entityRightCol];
+                tileNum1 = gp.tileM.mapTileNum[mapNum][entityTopRow][entityLeftCol];
+                tileNum2 = gp.tileM.mapTileNum[mapNum][entityTopRow][entityRightCol];
 
                 break;
             
             case "down":
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
 
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMapNum][entityBottomRow][entityLeftCol];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMapNum][entityBottomRow][entityRightCol];
+                tileNum1 = gp.tileM.mapTileNum[mapNum][entityBottomRow][entityLeftCol];
+                tileNum2 = gp.tileM.mapTileNum[mapNum][entityBottomRow][entityRightCol];
 
                 break;
 
             case "right":
                 entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
 
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMapNum][entityTopRow][entityRightCol];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMapNum][entityBottomRow][entityRightCol];
+                tileNum1 = gp.tileM.mapTileNum[mapNum][entityTopRow][entityRightCol];
+                tileNum2 = gp.tileM.mapTileNum[mapNum][entityBottomRow][entityRightCol];
                 break;
 
             case "left":
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
 
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMapNum][entityTopRow][entityLeftCol];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMapNum][entityBottomRow][entityLeftCol];
+                tileNum1 = gp.tileM.mapTileNum[mapNum][entityTopRow][entityLeftCol];
+                tileNum2 = gp.tileM.mapTileNum[mapNum][entityBottomRow][entityLeftCol];
                 break;
             
             default:

@@ -19,9 +19,10 @@ import object.Inventory;
 public class Player extends Entity implements Inventory{
     GamePanel gp;
     KeyHandler keyH;
-
     public final int screenX;
     public final int screenY;
+
+    int[][] startCo = {{34, 7}, {14, 10}};
 
     public final int inventorySize = 20;
     public ArrayList<SuperObject> inventory = new ArrayList<>();
@@ -29,6 +30,9 @@ public class Player extends Entity implements Inventory{
     // Gridbased move
     boolean moving = false;
     int pixelCounter = 0;
+
+    // CurrentObjs
+    ArrayList<SuperObject> objs;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -55,6 +59,11 @@ public class Player extends Entity implements Inventory{
         worldY = gp.tileSize * (gp.maxWorldRow / 2);
         speed = 4;
         direction = "down";
+    }
+
+    public void ini (int mapNum) {
+        worldX = startCo[mapNum][0] * gp.tileSize;
+        worldY = startCo[mapNum][1] * gp.tileSize;
     }
 
     public void getPlayerImage() {
@@ -88,6 +97,7 @@ public class Player extends Entity implements Inventory{
     }
     
     private void walk () {
+        objs = gp.aSetter.currentObjs();
         if (!moving){
             if ((keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed)){
                 if (keyH.upPressed == true) {
@@ -159,15 +169,15 @@ public class Player extends Entity implements Inventory{
     }
 
     public void interactObject (int i) {
-        for (int j = 0; j < gp.aSetter.getSize(); j++) {
+        for (int j = 0; j < objs.size(); j++) {
                 if (j == i) {
-                    gp.aSetter.getObj(j).adjFlag = true;
-                } else gp.aSetter.getObj(j).adjFlag = false;
+                    objs.get(j).adjFlag = true;
+                } else objs.get(j).adjFlag = false;
         }
         if (i != 999) {
-            gp.aSetter.getObj(i).interacted(this);
-            if (gp.aSetter.getObj(i).disappear){
-                gp.aSetter.removeObj(i);
+            objs.get(i).interacted(this);
+            if (objs.get(i).disappear){
+                objs.remove(i);
             }
         }
     }

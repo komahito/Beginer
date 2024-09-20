@@ -27,7 +27,7 @@ public class TileManager {
         this.mapTileNum = new int[gp.maxMapNum][][];
 
         // PREPARE TILES
-        tile = new Tile[10];
+        tile = new Tile[50];
         getTileImage();
 
         // MAKE mapTileNum matrix
@@ -41,6 +41,8 @@ public class TileManager {
         gp.currentMapNum = mapNum;
         gp.maxWorldRow = mapTileNum[mapNum].length;
         gp.maxWorldCol = mapTileNum[mapNum][0].length;
+
+        gp.player.ini(mapNum);
     }
 
     public void loadMap(int mapNum, String mapName){
@@ -106,6 +108,23 @@ public class TileManager {
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(new File(main.Property.res + "/tiles/sand.png"));
 
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(new File(main.Property.res + "/tiles/sand.png"));
+
+            tile[40] = new Tile();
+            tile[40].image = ImageIO.read(new File(main.Property.res + "/tiles/wall.png"));
+            tile[40].collision = true;
+
+            tile[41] = new Tile();
+            tile[41].image = ImageIO.read(new File(main.Property.res + "/tiles/grass01.png"));
+
+            tile[43] = new Tile();
+            tile[43].image = ImageIO.read(new File(main.Property.res + "/tiles/floor01.png"));
+
+            tile[44] = new Tile();
+            tile[44].image = ImageIO.read(new File(main.Property.res + "/tiles/table01.png"));
+            tile[44].collision = true;
+
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -114,6 +133,8 @@ public class TileManager {
     public void draw(Graphics2D g2) {
         int worldRow = 0;
         int worldCol = 0;
+
+        int mapNum = gp.currentMapNum;
         
         while (worldCol < maxWorldCol && worldRow < maxWorldRow) {
             int tileNum = mapTileNum[gp.currentMapNum][worldRow][worldCol];
