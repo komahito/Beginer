@@ -53,9 +53,9 @@ public class AssetSetter {
         objs.add(house);
 
         OBJ_Chest chest1 = new OBJ_Chest(gp);
-        chest1.worldX = 13 * gp.tileSize;
-        chest1.worldY = 9 * gp.tileSize;
-        objs.add(chest);
+        chest1.worldX = 11 * gp.tileSize;
+        chest1.worldY = 8 * gp.tileSize;
+        objs.add(chest1);
 
         OBJ_MapDoor mapDoor = new OBJ_MapDoor(gp);
         mapDoor.worldX = 15 * gp.tileSize;

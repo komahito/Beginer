@@ -40,6 +40,8 @@ public class UI {
     private final int maxcCursorRow = 4;
     protected int cCursorCol = 0;
     protected int cCursorRow = 0;
+    boolean invISChest = false; // false: playerInv, true: chestInv
+
 
     public UI (GamePanel gp) {
         this.gp = gp;
@@ -144,7 +146,11 @@ public class UI {
         int cursorY = slotY + cursorRow * gp.tileSize;
         int cursorSize = gp.tileSize - 2;
 
-        g2.setColor(Color.white);
+        if (gp.inventoryState) g2.setColor(Color.white);
+        else if (gp.chestState) {
+            if (!invISChest) g2.setColor(Color.white);
+            else g2.setColor(Color.GRAY);
+        }
         g2.setStroke(new BasicStroke());
         g2.drawRoundRect(cursorX + 1, cursorY + 1, cursorSize, cursorSize, 10, 10);
     }
@@ -173,7 +179,7 @@ public class UI {
         inventoryIni();
         cCursorCol = 0;
         cCursorRow = 0;
-        gp.keyH.invISChest = false;
+        this.invISChest = false;
     }
 
     public void pluCCursorCol () {
@@ -222,7 +228,8 @@ public class UI {
         int cursorY = slotY + cCursorRow * gp.tileSize;
         int cursorSize = gp.tileSize - 2;
 
-        g2.setColor(Color.white);
+        if (invISChest) g2.setColor(Color.white);
+        else g2.setColor(Color.GRAY);
         g2.setStroke(new BasicStroke());
         g2.drawRoundRect(cursorX + 1, cursorY + 1, cursorSize, cursorSize, 10, 10);
     }

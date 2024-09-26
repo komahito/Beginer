@@ -9,7 +9,7 @@ import main.GamePanel;
 import tile.TileManager;
 import tile.Map;
 
-public class OBJ_House extends SuperObject {
+public class OBJ_House extends SuperObject implements EnterKey {
     GamePanel gp;
     public Map frontMap;
     public Map backMap;
@@ -28,8 +28,12 @@ public class OBJ_House extends SuperObject {
     }
 
     public void interacted (Player player) {
+        adjFlag = true;
+    }
+
+    public void run () {
         if (frontMap != null) {
             gp.cWorld.changeMapFlag(frontMap.mapNum);
         }
-    }
+    } 
 }

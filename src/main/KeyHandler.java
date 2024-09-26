@@ -3,7 +3,9 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import object.EnterKey;
 import object.OBJ_Chest;
+import object.OBJ_MapDoor;
 
 public class KeyHandler implements KeyListener {
     private GamePanel gp;
@@ -20,8 +22,7 @@ public class KeyHandler implements KeyListener {
     public boolean inventoryPressed;
 
     // CHEST INVENTORY STATE
-    boolean invISChest = false; // false: playerInv, true: chestInv
-    int i = 0;
+    //int i = 0;
 
 
     public KeyHandler (GamePanel gp) {
@@ -63,10 +64,10 @@ public class KeyHandler implements KeyListener {
                 gp.playerState = true;
             }
             if (code == KeyEvent.VK_C) {
-                if (invISChest) invISChest = false;
-                else invISChest = true;
+                if (gp.ui.invISChest) gp.ui.invISChest = false;
+                else gp.ui.invISChest = true;
             }
-            if (!invISChest /*player's inv*/){
+            if (!gp.ui.invISChest /*player's inv*/){
                 if (code == KeyEvent.VK_W) {
                     gp.ui.minCursorRow();
                 }
@@ -132,6 +133,10 @@ public class KeyHandler implements KeyListener {
                             gp.playerState = false;
                             gp.chestState = true;
                             gp.ui.cInventoryIni((OBJ_Chest) gp.objs.get(i));
+                        }
+                        if (gp.objs.get(i).name == "MapDoor" || gp.objs.get(i).name == "House") {
+                            EnterKey obj = (EnterKey) gp.objs.get(i);
+                            obj.run();
                         }
                     }
                 }

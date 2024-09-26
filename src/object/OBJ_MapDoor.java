@@ -9,7 +9,7 @@ import entity.Player;
 import main.ChangeWorld;
 import tile.Map;
 
-public class OBJ_MapDoor extends SuperObject {
+public class OBJ_MapDoor extends SuperObject implements EnterKey {
     public int adjX;
     public int adjY;
 
@@ -26,11 +26,15 @@ public class OBJ_MapDoor extends SuperObject {
         }
         // tile[0].image = ImageIO.read(new File(main.Property.res + "/tiles/grass01.png"));
 
-        collision = false;
+        collision = true;
         disappear = false;
     }
 
     public void interacted (Player player) {
+        adjFlag = true;
+    }
+
+    public void run () {
         if (frontMap != null) gp.cWorld.changeMapFlag(frontMap.mapNum);
     }
 }
