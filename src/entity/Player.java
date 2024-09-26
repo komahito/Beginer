@@ -120,6 +120,7 @@ public class Player extends Entity implements Inventory{
 
                 // CHECK OBJECT COLLISIOM
                 int objIndex = gp.cChecker.checkObject(this, true);
+                //System.out.println(gp.currentMapNum + ":" + objIndex);
                 interactObject(objIndex);
 
                 moving = true;
@@ -178,7 +179,7 @@ public class Player extends Entity implements Inventory{
         if (i != 999) {
             gp.objs.get(i).interacted(this);
             if (gp.objs.get(i).disappear){
-                gp.remove(i);
+                gp.objs.remove(i);
             }
         }
     }
