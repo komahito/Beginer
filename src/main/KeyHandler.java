@@ -129,12 +129,7 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER){
                 for (int i = 0; i < gp.objs.size(); i++) {
                     if (gp.objs.get(i).adjFlag) {
-                        if (gp.objs.get(i).name == "Chest"){
-                            gp.playerState = false;
-                            gp.chestState = true;
-                            gp.ui.cInventoryIni((OBJ_Chest) gp.objs.get(i));
-                        }
-                        if (gp.objs.get(i).name == "MapDoor" || gp.objs.get(i).name == "House") {
+                        if (gp.objs.get(i).name == "Chest" || gp.objs.get(i).name == "MapDoor" || gp.objs.get(i).name == "House") {
                             EnterKey obj = (EnterKey) gp.objs.get(i);
                             obj.run();
                         }

@@ -31,7 +31,7 @@ public class OBJ_MapDoor extends SuperObject implements EnterKey {
     }
 
     public void interacted (Player player) {
-        adjFlag = true;
+        
     }
 
     public void run () {
