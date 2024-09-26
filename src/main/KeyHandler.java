@@ -126,12 +126,12 @@ public class KeyHandler implements KeyListener {
 
             // pickup object
             if (code == KeyEvent.VK_ENTER){
-                for (int i = 0; i < gp.aSetter.getSize(); i++) {
-                    if (gp.aSetter.getObj(i).adjFlag) {
-                        if (gp.aSetter.getObj(i).name == "Chest"){
+                for (int i = 0; i < gp.objs.size(); i++) {
+                    if (gp.objs.get(i).adjFlag) {
+                        if (gp.objs.get(i).name == "Chest"){
                             gp.playerState = false;
                             gp.chestState = true;
-                            gp.ui.cInventoryIni((OBJ_Chest) gp.aSetter.getObj(i));
+                            gp.ui.cInventoryIni((OBJ_Chest) gp.objs.get(i));
                         }
                     }
                 }

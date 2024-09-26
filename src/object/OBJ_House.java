@@ -2,15 +2,17 @@ package object;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 import entity.Player;
 import main.GamePanel;
 import tile.TileManager;
+import tile.Map;
 
 public class OBJ_House extends SuperObject {
     GamePanel gp;
+    public Map frontMap;
+    public Map backMap;
 
     public OBJ_House (GamePanel gp) {
         this.gp = gp;
@@ -26,6 +28,8 @@ public class OBJ_House extends SuperObject {
     }
 
     public void interacted (Player player) {
-        gp.tileM.changeMap(1);
+        if (frontMap != null) {
+            gp.cWorld.changeMapFlag(frontMap.mapNum);
+        }
     }
 }

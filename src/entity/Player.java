@@ -31,9 +31,6 @@ public class Player extends Entity implements Inventory{
     boolean moving = false;
     int pixelCounter = 0;
 
-    // CurrentObjs
-    ArrayList<SuperObject> objs;
-
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
@@ -64,6 +61,11 @@ public class Player extends Entity implements Inventory{
     public void ini (int mapNum) {
         worldX = startCo[mapNum][0] * gp.tileSize;
         worldY = startCo[mapNum][1] * gp.tileSize;
+    }
+
+    public void moveTo (int x, int y) {
+        worldX = x;
+        worldY = y;
     }
 
     public void getPlayerImage() {
@@ -97,7 +99,6 @@ public class Player extends Entity implements Inventory{
     }
     
     private void walk () {
-        objs = gp.aSetter.currentObjs();
         if (!moving){
             if ((keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed)){
                 if (keyH.upPressed == true) {
@@ -169,15 +170,15 @@ public class Player extends Entity implements Inventory{
     }
 
     public void interactObject (int i) {
-        for (int j = 0; j < objs.size(); j++) {
-                if (j == i) {
-                    objs.get(j).adjFlag = true;
-                } else objs.get(j).adjFlag = false;
+        for (int j = 0; j < gp.objs.size(); j++) {
+            if (j == i) {
+                gp.objs.get(j).adjFlag = true;
+            } else gp.objs.get(j).adjFlag = false;
         }
         if (i != 999) {
-            objs.get(i).interacted(this);
-            if (objs.get(i).disappear){
-                objs.remove(i);
+            gp.objs.get(i).interacted(this);
+            if (gp.objs.get(i).disappear){
+                gp.remove(i);
             }
         }
     }

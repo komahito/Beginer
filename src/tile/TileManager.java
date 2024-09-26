@@ -18,70 +18,13 @@ public class TileManager {
     public Tile[] tile;
     int maxWorldCol;
     int maxWorldRow;
-    public int[][][] mapTileNum;
-    String mapName0 = main.Property.res + "/maps/world01.txt";
-    String mapName1 = main.Property.res + "/maps/interior01.txt";
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        this.mapTileNum = new int[gp.maxMapNum][][];
 
         // PREPARE TILES
         tile = new Tile[50];
         getTileImage();
-
-        // MAKE mapTileNum matrix
-        loadMap(0, mapName0);
-        loadMap(1, mapName1);
-        gp.maxWorldCol = this.maxWorldCol;
-        gp.maxWorldRow = this.maxWorldRow;
-    }
-    
-    public void changeMap(int mapNum) {
-        gp.currentMapNum = mapNum;
-        gp.maxWorldRow = mapTileNum[mapNum].length;
-        gp.maxWorldCol = mapTileNum[mapNum][0].length;
-
-        gp.player.ini(mapNum);
-    }
-
-    public void loadMap(int mapNum, String mapName){
-        try{
-            FileReader fr = new FileReader(new File(mapName));
-            BufferedReader br = new BufferedReader(fr);
-
-            br.mark(500000000);
-
-            maxWorldCol = br.readLine().split(" ").length;
-            maxWorldRow = (int) br.lines().count();
-            mapTileNum[mapNum] = new int[maxWorldRow][maxWorldCol];
-
-            int row = 0;
-            int col = 0;
-            br.reset();
-            while ( col < maxWorldCol && row < maxWorldRow) {
-                String line = br.readLine();
-            
-                String[] numbers = line.split(" ");
-                while (col < maxWorldCol) {
-                    int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[mapNum][row][col] = num;
-                    col++;
-                }
-
-                if (col == maxWorldCol) {
-                    col = 0;
-                    row++;
-                }
-            }
-
-            br.close();
-
-        } catch(FileNotFoundException e) {
-            System.err.println(e);
-        } catch(IOException e) {
-            System.err.println(e);
-        }
     }
 
     public void getTileImage() {
@@ -130,44 +73,7 @@ public class TileManager {
         }
     }
 
-    public void draw(Graphics2D g2) {
-        int worldRow = 0;
-        int worldCol = 0;
-
-        int mapNum = gp.currentMapNum;
-        
-        while (worldCol < maxWorldCol && worldRow < maxWorldRow) {
-            int tileNum = mapTileNum[gp.currentMapNum][worldRow][worldCol];
-
-            int worldX = worldCol * gp.tileSize;
-            int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
-
-            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-                    g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-            
-            }
-            
-            worldCol++;
-
-            if (worldCol == maxWorldCol) {
-                worldCol = 0;
-                worldRow++;
-            }
-        }
-
-        // for (col = 0; col < gp.maxScreenCol; col++) {
-        //     for (row = 0; row < gp.maxScreenRow; row++) {
-        //         int tileNum = mapTileNum[col][row];
-        //         g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-        //         x += gp.tileSize;
-        //     }
-        //     x = 0;
-        //     y += gp.tileSize;
-        // }
+    public Tile getTile (int tileNum) {
+        return this.tile[tileNum];
     }
 }

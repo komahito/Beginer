@@ -3,6 +3,7 @@ package main;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
+import tile.Map;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
@@ -27,8 +28,6 @@ public class GamePanel extends JPanel implements Runnable {
     //SYSTEM and WORLD SETTING
     public int maxWorldCol;
     public int maxWorldRow; // defined by tileM
-    public int currentMapNum = 0;
-    public final int maxMapNum = 10;
     public TileManager tileM = new TileManager(this); // handle mapTileNum[row][col]
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
@@ -36,7 +35,11 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public int currentMapNum = 0;
+    public Map currentMap = aSetter.maps[currentMapNum];
+    public ArrayList<SuperObject> objs = new ArrayList<>();
     public UI ui = new UI(this);
+    public ChangeWorld cWorld = new ChangeWorld(this);
 
     //ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
@@ -56,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setUpGame() {
-        aSetter.setObject();
+        //aSetter.setObject();
 
         //playMusic(0);
     }
@@ -94,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-
+        cWorld.changeMap();
         player.update();
 
     }
@@ -104,11 +107,11 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         // TILE
-        tileM.draw(g2);
+        currentMap.draw(g2);
         
         // OBJECT
-        for (int i = 0; i < aSetter.getSize(); i++) {
-            aSetter.getObj(i).draw(g2, this);
+        for (int i = 0; i < objs.size(); i++) {
+            objs.get(i).draw(g2, this);
         }
 
         // PLAYER
@@ -120,19 +123,4 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
-    // public void playMusic (int i) {
-    //     sound.setFile(i);
-    //     sound.play();
-    //     sound.loop();
-
-    // }
-
-    // public void stopMusic () {
-    //     sound.stop();
-    // }
-
-    // public void playSE (int i) {
-    //     sound.setFile(i);
-    //     sound.play();
-    // }
 }
