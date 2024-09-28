@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import object.OBJ_Chest;
 import object.OBJ_Key;
@@ -17,9 +18,8 @@ public class UI {
     Graphics2D g2;
     
     //MESSAGE
-    public boolean messageOn = false;
-    public String message = "";
-    int messageCounter = 0;
+    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<Integer> messageCounters = new ArrayList<>();
     
     //KEY
     BufferedImage keyImage;
@@ -66,9 +66,7 @@ public class UI {
             drawTime();
 
             // MESSAGE
-            if (messageOn) {
-                drawMessage();
-            }
+            drawMessage();
 
             // INVENTORY
             if (gp.inventoryState) {
@@ -234,24 +232,47 @@ public class UI {
         g2.drawRoundRect(cursorX + 1, cursorY + 1, cursorSize, cursorSize, 10, 10);
     }
     
-    // NO USE
     public void drawMessage() {
-        g2.setFont(g2.getFont().deriveFont(30F));
-        g2.setColor(Color.white);
-        g2.drawString(message, gp.tileSize / 2, gp.tileSize * 5);
+        // g2.setFont(g2.getFont().deriveFont(30F));
+        // g2.setColor(Color.white);
+        // g2.drawString(messages, gp.tileSize / 2, gp.tileSize * 5);
 
-        messageCounter++;
-        if (messageCounter > 120) {
-            messageCounter = 0;
-            messageOn = false;
+        // messageCounters++;
+        // if (messageCounters > 120) {
+        //     messageCounters = 0;
+        //     messageOn = false;
+        // }
+
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize * 10;
+
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        for (int i = messages.size() - 1; i >= 0; i--) {
+            if (messages.get(i) != null) {
+                g2.setColor(Color.black);
+                g2.drawString(messages.get(i), messageX + 2, messageY + 2);
+                g2.setColor(Color.white);
+                g2.drawString(messages.get(i), messageX, messageY);
+
+                int counter = messageCounters.get(i) + 1;
+                messageCounters.set(i, counter);
+                messageY -= 50;
+
+                if (messageCounters.get(i) > 180) {
+                    messages.remove(i);
+                    messageCounters.remove(i);
+                }
+            }
         }
     }
 
     public void showMessage(String text) {
-        message = text;
-        messageOn = true;
+        messages.add(text);
+        messageCounters.add(0);
     }
 
+    // NO USE
     public void drawTime() {
         playTime += (double) 1/60;
         // g2.drawString("Time: " + dFormat.format(playTime), gp.tileSize*11, 65); // I hate to display this for all time...
