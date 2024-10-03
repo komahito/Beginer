@@ -39,19 +39,22 @@ public class KeyHandler implements KeyListener {
 
         // INVENTORYSTATE
         if (gp.inventoryState) {
-            if (code == KeyEvent.VK_W) {
+            if (code == KeyEvent.VK_ENTER) {
+                gp.ui.useObj();
+            }
+            else if (code == KeyEvent.VK_W) {
                 gp.ui.minCursorRow();
             }
-            if (code == KeyEvent.VK_S) {
+            else if (code == KeyEvent.VK_S) {
                 gp.ui.pluCursorRow();
             }
-            if (code == KeyEvent.VK_A) {
+            else if (code == KeyEvent.VK_A) {
                 gp.ui.minCursorCol();
             }
-            if (code == KeyEvent.VK_D) {
+            else if (code == KeyEvent.VK_D) {
                 gp.ui.pluCursorCol();
             }
-            if (code == KeyEvent.VK_E) {
+            else if (code == KeyEvent.VK_E) {
                 gp.inventoryState = false;
                 gp.playerState = true;
             }
@@ -63,40 +66,40 @@ public class KeyHandler implements KeyListener {
                 gp.chestState = false;
                 gp.playerState = true;
             }
-            if (code == KeyEvent.VK_C) {
+            else if (code == KeyEvent.VK_C) {
                 if (gp.ui.invISChest) gp.ui.invISChest = false;
                 else gp.ui.invISChest = true;
             }
-            if (!gp.ui.invISChest /*player's inv*/){
+            else if (!gp.ui.invISChest /*player's inv*/){
                 if (code == KeyEvent.VK_W) {
                     gp.ui.minCursorRow();
                 }
-                if (code == KeyEvent.VK_S) {
+                else if (code == KeyEvent.VK_S) {
                     gp.ui.pluCursorRow();
                 }
-                if (code == KeyEvent.VK_A) {
+                else if (code == KeyEvent.VK_A) {
                     gp.ui.minCursorCol();
                 }
-                if (code == KeyEvent.VK_D) {
+                else if (code == KeyEvent.VK_D) {
                     gp.ui.pluCursorCol();
                 }
-                if (code == KeyEvent.VK_SPACE) {
+                else if (code == KeyEvent.VK_SPACE) {
                     gp.ui.storeInChest();
                 }
             } else {
                 if (code == KeyEvent.VK_W) {
                     gp.ui.minCCursorRow();
                 }
-                if (code == KeyEvent.VK_S) {
+                else if (code == KeyEvent.VK_S) {
                     gp.ui.pluCCursorRow();
                 }
-                if (code == KeyEvent.VK_A) {
+                else if (code == KeyEvent.VK_A) {
                     gp.ui.minCCursorCol();
                 }
-                if (code == KeyEvent.VK_D) {
+                else if (code == KeyEvent.VK_D) {
                     gp.ui.pluCCursorCol();
                 }
-                if (code == KeyEvent.VK_SPACE) {
+                else if (code == KeyEvent.VK_SPACE) {
                     gp.ui.takoutFromChest();
                 }
             }
@@ -109,24 +112,24 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
             }
-            if (code == KeyEvent.VK_S) {
+            else if (code == KeyEvent.VK_S) {
                 downPressed = true;
             }
-            if (code == KeyEvent.VK_A) {
+            else if (code == KeyEvent.VK_A) {
                 leftPressed = true;
             }
-            if (code == KeyEvent.VK_D) {
+            else if (code == KeyEvent.VK_D) {
                 rightPressed = true;
             }
 
-            if (code == KeyEvent.VK_E) {
+            else if (code == KeyEvent.VK_E) {
                 gp.inventoryState = true;
                 gp.ui.inventoryIni();
                 gp.playerState = false;
             }
 
             // pickup object
-            if (code == KeyEvent.VK_ENTER){
+            else if (code == KeyEvent.VK_ENTER){
                 for (int i = 0; i < gp.objs.size(); i++) {
                     if (gp.objs.get(i).adjFlag) {
                         if (gp.objs.get(i).name == "Chest" || gp.objs.get(i).name == "MapDoor" || gp.objs.get(i).name == "House") {
@@ -146,13 +149,13 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_W) {
             upPressed = false;
         }
-        if (code == KeyEvent.VK_S) {
+        else if (code == KeyEvent.VK_S) {
             downPressed = false;
         }
-        if (code == KeyEvent.VK_A) {
+        else if (code == KeyEvent.VK_A) {
             leftPressed = false;
         }
-        if (code == KeyEvent.VK_D) {
+        else if (code == KeyEvent.VK_D) {
             rightPressed = false;
         }
     }

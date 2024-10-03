@@ -16,6 +16,10 @@ public class OBJ_Book extends SuperObject implements Movable {
             e.printStackTrace();
         }
     }
+
+    public void use () {
+        gp.ui.showMessage("Onece apone a time, one dowarf lived near the river.");
+    }
     
     public void interacted (Player player) {
         pickedUp(player);

@@ -9,10 +9,13 @@ import main.GamePanel;
 import tile.TileManager;
 import tile.Map;
 
-public class OBJ_House extends SuperObject implements EnterKey {
+public class OBJ_House extends SuperObject implements EnterKey, NeedKey {
     GamePanel gp;
     public Map frontMap;
     public Map backMap;
+
+    public int keyNum = 0;
+    boolean isLocked = false;
 
     public OBJ_House (GamePanel gp) {
         this.gp = gp;
@@ -27,12 +30,35 @@ public class OBJ_House extends SuperObject implements EnterKey {
         }
     }
 
+    
+    public void setKey(int keyNum) {
+        this.keyNum = keyNum;
+        isLocked = true;
+    }
+    public void lock(int keyNum) {
+        if (keyNum == this.keyNum) {
+            isLocked = true;
+            frontMap.inDoor.isLocked = true;
+            gp.ui.showMessage("Lock");
+        }
+    }
+    public void unlock(int keyNum) {
+        if (keyNum == this.keyNum) {
+            isLocked = false;
+            frontMap.inDoor.isLocked = false;
+            gp.ui.showMessage("Unlock");
+        }
+    }
+    public boolean checkIsLocked() {
+        return isLocked;
+    }
+
     public void interacted (Player player) {
     }
 
     public void run () {
-        if (frontMap != null) {
+        if (!isLocked && frontMap != null) {
             gp.cWorld.changeMapFlag(frontMap.mapNum);
         }
-    } 
+    }
 }

@@ -4,4 +4,5 @@ import entity.Player;
 
 public interface Movable {
     public void pickedUp(Player player);
+    public void use ();
 }

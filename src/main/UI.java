@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import object.Movable;
 import object.OBJ_Chest;
 import object.OBJ_Key;
 import object.SuperObject;
@@ -47,9 +48,6 @@ public class UI {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
-
-        OBJ_Key key = new OBJ_Key(gp);
-        keyImage = key.image;
     }
 
     public void draw (Graphics2D g2) {
@@ -93,6 +91,11 @@ public class UI {
     }
  
     // INVENTORY
+    public void useObj () {
+        Movable obj = (Movable) gp.player.inventory.get(getInventoryIndexOfSlot());
+        obj.use();
+    }
+
     public void inventoryIni() {
         cursorCol = 0;
         cursorRow = 0;
@@ -163,13 +166,17 @@ public class UI {
     }
     
     public void storeInChest () {
-        SuperObject obj = gp.player.takeObject(getInventoryIndexOfSlot());
-        if (obj != null) chest.addObject(obj);
+        if (getInventoryIndexOfSlot() < gp.player.inventory.size()) {
+            SuperObject obj = gp.player.takeObject(getInventoryIndexOfSlot());
+            if (obj != null) chest.addObject(obj);
+        }
     }
 
     public void takoutFromChest () {
-        SuperObject obj = chest.takeObject(getCInventoryIndexOfSlot());
-        if (obj != null) gp.player.addObject(obj);
+        if (getCInventoryIndexOfSlot() < chest.inventory.size()) {
+            SuperObject obj = chest.takeObject(getCInventoryIndexOfSlot());
+            if (obj != null) gp.player.addObject(obj);
+        }
     }
 
     public void cInventoryIni(OBJ_Chest chest) {
@@ -233,16 +240,6 @@ public class UI {
     }
     
     public void drawMessage() {
-        // g2.setFont(g2.getFont().deriveFont(30F));
-        // g2.setColor(Color.white);
-        // g2.drawString(messages, gp.tileSize / 2, gp.tileSize * 5);
-
-        // messageCounters++;
-        // if (messageCounters > 120) {
-        //     messageCounters = 0;
-        //     messageOn = false;
-        // }
-
         int messageX = gp.tileSize;
         int messageY = gp.tileSize * 10;
 

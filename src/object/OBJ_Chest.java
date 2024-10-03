@@ -10,7 +10,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
 import entity.Player;
 import main.GamePanel;
 
-public class OBJ_Chest extends SuperObject implements Inventory, EnterKey {
+public class OBJ_Chest extends SuperObject implements Inventory, EnterKey{
     KeyHandler keyH;
 
     public final int inventorySize = 13 * 4;

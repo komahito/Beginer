@@ -21,6 +21,10 @@ public class OBJ_Boots extends SuperObject implements Movable {
         // tile[0].image = ImageIO.read(new File(main.Property.res + "/tiles/grass01.png"));
     }
 
+    public void use () {
+
+    }
+
     public void interacted (Player player) {
         pickedUp(player);
     }

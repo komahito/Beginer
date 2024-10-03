@@ -116,11 +116,10 @@ public class Player extends Entity implements Inventory{
 
                 // CHECK TILE COLLISION
                 collisionOn = false;
-                gp.cChecker.checkTile(this);
+                gp.cChecker.checkTile(this); // いずれマップのインデックスを渡して安定させる。
 
                 // CHECK OBJECT COLLISIOM
                 int objIndex = gp.cChecker.checkObject(this, true);
-                //System.out.println(gp.currentMapNum + ":" + objIndex);
                 interactObject(objIndex);
 
                 moving = true;

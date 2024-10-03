@@ -9,12 +9,15 @@ import entity.Player;
 import main.ChangeWorld;
 import tile.Map;
 
-public class OBJ_MapDoor extends SuperObject implements EnterKey {
+public class OBJ_MapDoor extends SuperObject implements EnterKey, NeedKey {
     public int adjX;
     public int adjY;
 
     public Map frontMap;
     public Map backMap;
+
+    public int keyNum = 0;
+    boolean isLocked = false;
 
     public OBJ_MapDoor (GamePanel gp) {
         this.gp = gp;
@@ -30,11 +33,34 @@ public class OBJ_MapDoor extends SuperObject implements EnterKey {
         disappear = false;
     }
 
+    public boolean checkIsLocked () {
+        return isLocked;
+    }
+    public void setKey(int keyNum) {
+        this.keyNum = keyNum;
+        isLocked = true;
+    }
+    public void lock(int keyNum) {
+        if (keyNum == this.keyNum) {
+            isLocked = true;
+            frontMap.outDoor.isLocked = true;
+            gp.ui.showMessage("Lock");
+        }
+        
+    }
+    public void unlock(int keyNum) {
+        if (keyNum == this.keyNum) {
+            isLocked = false;
+            frontMap.outDoor.isLocked = false;
+            gp.ui.showMessage("UnLock");
+        }
+    }
+
     public void interacted (Player player) {
         
     }
 
     public void run () {
-        if (frontMap != null) gp.cWorld.changeMapFlag(frontMap.mapNum);
+        if (!isLocked && frontMap != null) gp.cWorld.changeMapFlag(frontMap.mapNum);
     }
 }

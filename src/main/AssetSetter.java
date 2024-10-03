@@ -81,5 +81,11 @@ public class AssetSetter {
         house.map = maps[0];
         chest1.map = maps[1];
         mapDoor.map = maps[1];
+
+        house.setKey(20040420);
+        mapDoor.setKey(20040420);
+        key.setKeyNum(20040420);
+
+
     }
 }
