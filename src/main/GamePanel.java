@@ -87,7 +87,6 @@ public class GamePanel extends JPanel implements Runnable {
                 repaint();
 
                 if (gameFinished) {
-                    //System.out.println("(*''*)");
                     gameThread = null;
                 }
 
