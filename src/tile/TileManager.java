@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
+import main.Drawer;
 import main.GamePanel;
 
 public class TileManager {

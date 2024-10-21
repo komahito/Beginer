@@ -1,8 +1,13 @@
 package entity;
 
+import main.Action;
+import main.Actor;
+import main.Actor_Player;
+import main.Drawer_Player;
 import main.GamePanel;
 import main.KeyHandler;
 import main.Property;
+import main.WalkAction;
 import object.OBJ_Chest;
 import object.OBJ_Key;
 import object.SuperObject;
@@ -16,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import object.Inventory;
 
-public class Player extends Entity implements Inventory{
+public class Player extends Entity implements Inventory {
     GamePanel gp;
     KeyHandler keyH;
     public final int screenX;
@@ -30,6 +35,10 @@ public class Player extends Entity implements Inventory{
     // Gridbased move
     boolean moving = false;
     int pixelCounter = 0;
+
+    // TEMP
+    public Actor_Player actor = new Actor_Player();
+    public Drawer_Player drawer = new Drawer_Player();
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -92,67 +101,68 @@ public class Player extends Entity implements Inventory{
         }
     }
 
-    public void update() {
-        if (gp.playerState) {
-            walk();
-        }
-    }
     
-    private void walk () {
-        if (!moving){
-            if ((keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed)){
-                if (keyH.upPressed == true) {
-                    direction = "up";
-                }
-                else if (keyH.downPressed == true) {
-                    direction = "down";
-                }
-                else if (keyH.rightPressed == true) {
-                    direction = "right";
-                }
-                else if (keyH.leftPressed == true) {
-                    direction = "left";
-                }
+    // public void update() {
+    //     if (gp.playerState) {
+    //         walk();
+    //     }
+    // }
+    
+    // private void walk () {
+    //     if (!moving){
+    //         if ((keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed)){
+    //             if (keyH.upPressed == true) {
+    //                 direction = "up";
+    //             }
+    //             else if (keyH.downPressed == true) {
+    //                 direction = "down";
+    //             }
+    //             else if (keyH.rightPressed == true) {
+    //                 direction = "right";
+    //             }
+    //             else if (keyH.leftPressed == true) {
+    //                 direction = "left";
+    //             }
 
-                // CHECK TILE COLLISION
-                collisionOn = false;
-                gp.cChecker.checkTile(this); // いずれマップのインデックスを渡して安定させる。
+    //             // CHECK TILE COLLISION
+    //             collisionOn = false;
+    //             gp.cChecker.checkTile(this); // いずれマップのインデックスを渡して安定させる。
 
-                // CHECK OBJECT COLLISIOM
-                int objIndex = gp.cChecker.checkObject(this, true);
-                interactObject(objIndex);
+    //             // CHECK OBJECT COLLISIOM
+    //             int objIndex = gp.cChecker.checkObject(this, true);
+    //             interactObject(objIndex);
 
-                moving = true;
-            }
+    //             moving = true;
+    //         }
         
-        } else {
-            // IF COLLISION IS FALSE, PLAYER CAN MOVE
-            if (!collisionOn) {
-                switch (direction) {
-                    case "up": worldY -= speed; break;
-                    case "down": worldY += speed; break;
-                    case "right": worldX += speed; break;
-                    case "left": worldX -= speed; break;
-                }
-                spriteCounter++;
-            }
+    //     } else {
+    //         // IF COLLISION IS FALSE, PLAYER CAN MOVE
+    //         if (!collisionOn) {
+    //             switch (direction) {
+    //                 case "up": worldY -= speed; break;
+    //                 case "down": worldY += speed; break;
+    //                 case "right": worldX += speed; break;
+    //                 case "left": worldX -= speed; break;
+    //             }
+    //             spriteCounter++;
+    //         }
 
-            if (spriteCounter > 13) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
-            }
+    //         if (spriteCounter > 13) {
+    //             if (spriteNum == 1) {
+    //                 spriteNum = 2;
+    //             } else if (spriteNum == 2) {
+    //                 spriteNum = 1;
+    //             }
+    //             spriteCounter = 0;
+    //         }
 
-            pixelCounter += speed;
-            if (pixelCounter >= gp.tileSize) {
-                moving = false;
-                pixelCounter = 0;
-            }
-        }
-    }
+    //         pixelCounter += speed;
+    //         if (pixelCounter >= gp.tileSize) {
+    //             moving = false;
+    //             pixelCounter = 0;
+    //         }
+    //     }
+    // }
 
     public boolean addObject (SuperObject obj) {
         if (inventory.size() < inventorySize){
@@ -169,58 +179,58 @@ public class Player extends Entity implements Inventory{
         } else return null;
     }
 
-    public void interactObject (int i) {
-        for (int j = 0; j < gp.objs.size(); j++) {
-            if (j == i) {
-                gp.objs.get(j).adjFlag = true;
-            } else gp.objs.get(j).adjFlag = false;
-        }
-        if (i != 999) {
-            gp.objs.get(i).interacted(this);
-            if (gp.objs.get(i).disappear){
-                gp.objs.remove(i);
-            }
-        }
-    }
+    // public void interactObject (int i) {
+    //     for (int j = 0; j < gp.objs.size(); j++) {
+    //         if (j == i) {
+    //             gp.objs.get(j).adjFlag = true;
+    //         } else gp.objs.get(j).adjFlag = false;
+    //     }
+    //     if (i != 999) {
+    //         gp.objs.get(i).interacted(this);
+    //         if (gp.objs.get(i).disappear){
+    //             gp.objs.remove(i);
+    //         }
+    //     }
+    // }
 
-    public void draw(Graphics2D g2) {
-        BufferedImage image = null;
+    // public void draw(Graphics2D g2) {
+    //     BufferedImage image = null;
 
-        switch(direction){
-            case "up":
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
-                break;
-            case "down":
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
-                break;
-            case "left":
-                if (spriteNum == 1) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
-                break;
-            case "right":
-                if (spriteNum == 1) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
-                break;
-        }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+    //     switch(direction){
+    //         case "up":
+    //             if (spriteNum == 1) {
+    //                 image = up1;
+    //             }
+    //             if (spriteNum == 2) {
+    //                 image = up2;
+    //             }
+    //             break;
+    //         case "down":
+    //             if (spriteNum == 1) {
+    //                 image = down1;
+    //             }
+    //             if (spriteNum == 2) {
+    //                 image = down2;
+    //             }
+    //             break;
+    //         case "left":
+    //             if (spriteNum == 1) {
+    //                 image = left1;
+    //             }
+    //             if (spriteNum == 2) {
+    //                 image = left2;
+    //             }
+    //             break;
+    //         case "right":
+    //             if (spriteNum == 1) {
+    //                 image = right1;
+    //             }
+    //             if (spriteNum == 2) {
+    //                 image = right2;
+    //             }
+    //             break;
+    //     }
+    //     g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
-    }
+    // }
 }

@@ -50,17 +50,25 @@ public class GamePanel extends JPanel implements Runnable {
     public boolean playerState = true;
     public boolean chestState = false;
 
+    // TEMP
+    private ArrayList<Actor> actors = new ArrayList<>();
+    private ArrayList<Drawer> drawers = new ArrayList<>(); 
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+        //TEMP INI
+        this.actors.add(this.player.actor);
+        this.drawers.add(this.player.drawer);
+        this.drawers.add(this.map.drawer);
     }
 
     public void setUpGame() {
         //aSetter.setObject();
-
         //playMusic(0);
     }
 
@@ -96,8 +104,16 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        cWorld.changeMap();
-        player.update();
+        for (int i = 0; i < this.actors.size(); i++) {
+            Actor actor = this.actors.get(i);
+            if (!actor.energyIsEmp()) {
+                Action action = actor.takeTurn();
+                action.perform();
+            }
+            
+        }
+        // cWorld.changeMap();
+        // player.update();
 
     }
     public void paintComponent(Graphics g) {
@@ -105,19 +121,27 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // TILE
-        currentMap.draw(g2);
-        
-        // OBJECT
-        for (int i = 0; i < objs.size(); i++) {
-            objs.get(i).draw(g2, this);
+        for (int i = 0; i < this.drawers.size(); i++) {
+            Drawer drawer = this.drawers.get(i);
+            Display display = drawer.takeTurn();
+            if (display != null) {
+                display.draw(g2);
+            }
         }
 
-        // PLAYER
-        player.draw(g2);
+        // // TILE
+        // currentMap.draw(g2);
+        
+        // // OBJECT
+        // for (int i = 0; i < objs.size(); i++) {
+        //     objs.get(i).draw(g2, this);
+        // }
 
-        // UI
-        ui.draw(g2);
+        // // PLAYER
+        // player.draw(g2);
+
+        // // UI
+        // ui.draw(g2);
 
         g2.dispose();
     }
