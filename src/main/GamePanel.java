@@ -6,6 +6,10 @@ import tile.TileManager;
 import tile.Map;
 
 import javax.swing.JPanel;
+
+import display.Display;
+import drawer.Drawer;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -26,20 +30,21 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     //SYSTEM and WORLD SETTING
-    public int maxWorldCol;
-    public int maxWorldRow; // defined by tileM
-    public TileManager tileM = new TileManager(this); // handle mapTileNum[row][col]
+    public int maxWorldCol = 50;
+    public int maxWorldRow = 50; // defined by tileM
+    // public TileManager tileM = new TileManager(this); // handle mapTileNum[row][col]
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
-    public KeyHandler keyH = new KeyHandler(this);
+     public KeyHandler keyH = new KeyHandler(this);
     Thread gameThread;
-    public CollisionChecker cChecker = new CollisionChecker(this);
-    public AssetSetter aSetter = new AssetSetter(this);
-    public int currentMapNum = 0;
-    public Map currentMap = aSetter.maps[currentMapNum];
-    public ArrayList<SuperObject> objs = new ArrayList<>();
-    public UI ui = new UI(this);
-    public ChangeWorld cWorld = new ChangeWorld(this);
+    // public CollisionChecker cChecker = new CollisionChecker(this);
+    // public AssetSetter aSetter = new AssetSetter(this);
+    // public int currentMapNum = 0;
+    // public Map currentMap = aSetter.maps[currentMapNum];
+    //public Map map = new Map(this, "world01");
+    //public ArrayList<SuperObject> objs = new ArrayList<>();
+    //public UI ui = new UI(this);
+    //public ChangeWorld cWorld = new ChangeWorld(this);
 
     //ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
@@ -64,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
         //TEMP INI
         this.actors.add(this.player.actor);
         this.drawers.add(this.player.drawer);
-        this.drawers.add(this.map.drawer);
+        //this.drawers.add(this.map.drawer);
     }
 
     public void setUpGame() {

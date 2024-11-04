@@ -1,70 +1,70 @@
 package tile;
-
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.File;
-import java.awt.Graphics2D;
-
+import drawer.Drawer;
+import drawer.Drawer_Map;
 import main.GamePanel;
 import object.OBJ_MapDoor;
 
 public class Map {
     GamePanel gp;
-    Tile[] tiles;
-    String mapName;
-    public int mapNum;
-    public int[][] mapTileNum;
-    public int maxWorldCol;
-    public int maxWorldRow;
     public OBJ_MapDoor inDoor;
     public OBJ_MapDoor outDoor;
 
-    public Map(GamePanel gp, String mapName, OBJ_MapDoor inDoor, OBJ_MapDoor outDoor) {
+    public Drawer drawer = new Drawer_Map(gp, this);
+    
+    public LoadMap loadMap;
+    public LoadTile loadTile;
+    
+    public String mapName;
+
+    public int maxWorldCol, maxWorldRow;
+    public int[][] mapTileNum;
+
+    public Tile[] tile;
+
+    public Map(GamePanel gp, String mapName) { // ex name "world01"
         this.gp = gp;
         this.mapName = main.Property.res + "/maps/" + mapName + ".txt";
-        this.inDoor = inDoor;
-        this.outDoor = outDoor;
 
-        // MAKE mapTileNum matrix
-        loadMap(this.mapName);
+        loadMap = new LoadMap(this);
+        loadTile = new LoadTile(this);
     }
 
-    private void loadMap(String mapName){
-        try{
-            FileReader fr = new FileReader(new File(mapName));
-            BufferedReader br = new BufferedReader(fr);
+    // private void loadMap(String mapName){
+    //     try{
+    //         FileReader fr = new FileReader(new File(mapName));
+    //         BufferedReader br = new BufferedReader(fr);
 
-            br.mark(500000000);
+    //         br.mark(500000000);
 
-            maxWorldCol = br.readLine().split(" ").length;
-            maxWorldRow = (int) br.lines().count();
-            mapTileNum = new int[maxWorldRow][maxWorldCol];
+    //         maxWorldCol = br.readLine().split(" ").length;
+    //         maxWorldRow = (int) br.lines().count();
+    //         mapTileNum = new int[maxWorldRow][maxWorldCol];
 
-            int row = 0;
-            int col = 0;
-            br.reset();
-            while ( col < maxWorldCol && row < maxWorldRow) {
-                String line = br.readLine();
+    //         int row = 0;
+    //         int col = 0;
+    //         br.reset();
+    //         while ( col < maxWorldCol && row < maxWorldRow) {
+    //             String line = br.readLine();
             
-                String[] numbers = line.split(" ");
-                while (col < maxWorldCol) {
-                    int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[row][col] = num;
-                    col++;
-                }
+    //             String[] numbers = line.split(" ");
+    //             while (col < maxWorldCol) {
+    //                 int num = Integer.parseInt(numbers[col]);
+    //                 mapTileNum[row][col] = num;
+    //                 col++;
+    //             }
 
-                if (col == maxWorldCol) {
-                    col = 0;
-                    row++;
-                }
-            }
+    //             if (col == maxWorldCol) {
+    //                 col = 0;
+    //                 row++;
+    //             }
+    //         }
 
-            br.close();
+    //         br.close();
 
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
+    //     } catch(Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //}
 
     // public void draw (Graphics2D g2) {
     //     int worldRow = 0;

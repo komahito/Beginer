@@ -3,7 +3,6 @@ package entity;
 import main.Action;
 import main.Actor;
 import main.Actor_Player;
-import main.Drawer_Player;
 import main.GamePanel;
 import main.KeyHandler;
 import main.Property;
@@ -13,6 +12,9 @@ import object.OBJ_Key;
 import object.SuperObject;
 
 import javax.imageio.ImageIO;
+
+import drawer.Drawer_Player;
+
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -22,30 +24,21 @@ import java.util.ArrayList;
 import object.Inventory;
 
 public class Player extends Entity implements Inventory {
-    GamePanel gp;
     KeyHandler keyH;
-    public final int screenX;
-    public final int screenY;
-
-    int[][] startCo = {{34, 7}, {14, 10}};
-
-    public final int inventorySize = 20;
-    public ArrayList<SuperObject> inventory = new ArrayList<>();
-
     // Gridbased move
     boolean moving = false;
     int pixelCounter = 0;
+    
+    public final int inventorySize = 20;
+    public ArrayList<SuperObject> inventory = new ArrayList<>();
 
     // TEMP
     public Actor_Player actor = new Actor_Player();
-    public Drawer_Player drawer = new Drawer_Player();
+    public Drawer_Player drawer = new Drawer_Player(gp, this);
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-
-        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
-        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         solidArea = new Rectangle();
         solidArea.x = 1;
@@ -57,7 +50,6 @@ public class Player extends Entity implements Inventory {
         solidAreaDefaultY = solidArea.y;
 
         setDefaultValues();
-        getPlayerImage();
     }
 
     public void setDefaultValues() {
@@ -68,37 +60,13 @@ public class Player extends Entity implements Inventory {
     }
 
     public void ini (int mapNum) {
-        worldX = startCo[mapNum][0] * gp.tileSize;
-        worldY = startCo[mapNum][1] * gp.tileSize;
+        worldX = 0;
+        worldY = 0;
     }
 
     public void moveTo (int x, int y) {
         worldX = x;
         worldY = y;
-    }
-
-    public void getPlayerImage() {
-        try{
-            File file = new File(Property.res + "/player/boy_up1.png");
-            up1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/boy_up2.png");
-            up2 = ImageIO.read(file);
-            file = new File(Property.res + "/player/boy_down1.png");
-            down1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/boy_down2.png");
-            down2 = ImageIO.read(file);
-            file = new File(Property.res + "/player/boy_left1.png");
-            left1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/boy_left2.png");
-            left2 = ImageIO.read(file);
-            file = new File(Property.res + "/player/boy_right1.png");
-            right1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/boy_right2.png");
-            right2 = ImageIO.read(file);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     

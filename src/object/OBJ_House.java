@@ -18,36 +18,36 @@ public class OBJ_House extends SuperObject implements EnterKey, NeedKey {
     boolean isLocked = false;
 
     public OBJ_House (GamePanel gp) {
-        this.gp = gp;
-        collision = true;
-        disappear = false;
+        // this.gp = gp;
+        // collision = true;
+        // disappear = false;
 
-        name = "House";
-        try {
-            image = ImageIO.read(new File(main.Property.res + "/objects/house.png"));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        // name = "House";
+        // try {
+        //     image = ImageIO.read(new File(main.Property.res + "/objects/house.png"));
+        // } catch (IOException e){
+        //     e.printStackTrace();
+        // }
     }
 
     
     public void setKey(int keyNum) {
-        this.keyNum = keyNum;
-        isLocked = true;
+        // this.keyNum = keyNum;
+        // isLocked = true;
     }
     public void lock(int keyNum) {
-        if (keyNum == this.keyNum) {
-            isLocked = true;
-            frontMap.inDoor.isLocked = true;
-            gp.ui.showMessage("Lock");
-        }
+        // if (keyNum == this.keyNum) {
+        //     isLocked = true;
+        //     frontMap.inDoor.isLocked = true;
+        //     gp.ui.showMessage("Lock");
+        // }
     }
     public void unlock(int keyNum) {
-        if (keyNum == this.keyNum) {
-            isLocked = false;
-            frontMap.inDoor.isLocked = false;
-            gp.ui.showMessage("Unlock");
-        }
+        // if (keyNum == this.keyNum) {
+        //     isLocked = false;
+        //     frontMap.inDoor.isLocked = false;
+        //     gp.ui.showMessage("Unlock");
+        // }
     }
     public boolean checkIsLocked() {
         return isLocked;
@@ -57,8 +57,8 @@ public class OBJ_House extends SuperObject implements EnterKey, NeedKey {
     }
 
     public void run () {
-        if (!isLocked && frontMap != null) {
-            gp.cWorld.changeMapFlag(frontMap.mapNum);
-        }
+        // if (!isLocked && frontMap != null) {
+        //     gp.cWorld.changeMapFlag(frontMap.mapNum);
+        // }
     }
 }

@@ -30,12 +30,12 @@ public class OBJ_Boots extends SuperObject implements Movable {
     }
 
     public void pickedUp (Player player) {
-        disappear = true;
-        if (!player.addObject(this)) {
-            disappear = false;
-        } else {            
-            player.speed += 2;
-            gp.ui.showMessage("You got a " + name +"!");
-        }
+        // disappear = true;
+        // if (!player.addObject(this)) {
+        //     disappear = false;
+        // } else {            
+        //     player.speed += 2;
+        //     gp.ui.showMessage("You got a " + name +"!");
+        // }
     }
 }

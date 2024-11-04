@@ -20,40 +20,40 @@ public class OBJ_MapDoor extends SuperObject implements EnterKey, NeedKey {
     boolean isLocked = false;
 
     public OBJ_MapDoor (GamePanel gp) {
-        this.gp = gp;
-        name = "MapDoor";
-        try {
-            image = ImageIO.read(new File(main.Property.res + "/objects/door.png"));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        // tile[0].image = ImageIO.read(new File(main.Property.res + "/tiles/grass01.png"));
+        // this.gp = gp;
+        // name = "MapDoor";
+        // try {
+        //     image = ImageIO.read(new File(main.Property.res + "/objects/door.png"));
+        // } catch (IOException e){
+        //     e.printStackTrace();
+        // }
+        // // tile[0].image = ImageIO.read(new File(main.Property.res + "/tiles/grass01.png"));
 
-        collision = true;
-        disappear = false;
+        // collision = true;
+        // disappear = false;
     }
 
     public boolean checkIsLocked () {
         return isLocked;
     }
     public void setKey(int keyNum) {
-        this.keyNum = keyNum;
-        isLocked = true;
+        // this.keyNum = keyNum;
+        // isLocked = true;
     }
     public void lock(int keyNum) {
-        if (keyNum == this.keyNum) {
-            isLocked = true;
-            frontMap.outDoor.isLocked = true;
-            gp.ui.showMessage("Lock");
-        }
+        // if (keyNum == this.keyNum) {
+        //     isLocked = true;
+        //     frontMap.outDoor.isLocked = true;
+        //     gp.ui.showMessage("Lock");
+        // }
         
     }
     public void unlock(int keyNum) {
-        if (keyNum == this.keyNum) {
-            isLocked = false;
-            frontMap.outDoor.isLocked = false;
-            gp.ui.showMessage("UnLock");
-        }
+        // if (keyNum == this.keyNum) {
+        //     isLocked = false;
+        //     frontMap.outDoor.isLocked = false;
+        //     gp.ui.showMessage("UnLock");
+        // }
     }
 
     public void interacted (Player player) {
@@ -61,6 +61,6 @@ public class OBJ_MapDoor extends SuperObject implements EnterKey, NeedKey {
     }
 
     public void run () {
-        if (!isLocked && frontMap != null) gp.cWorld.changeMapFlag(frontMap.mapNum);
+        // if (!isLocked && frontMap != null) gp.cWorld.changeMapFlag(frontMap.mapNum);
     }
 }
