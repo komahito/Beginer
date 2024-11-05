@@ -18,8 +18,6 @@ public class Drawer_Player extends DrawerfromEntity {
         this.gp = gp;
         this.name = "boy";
 
-        System.out.println(name);
-
         screenX = this.gp.screenWidth / 2 - (this.gp.tileSize / 2);
         screenY = this.gp.screenHeight / 2 - (this.gp.tileSize / 2);
     }

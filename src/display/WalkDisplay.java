@@ -23,14 +23,16 @@ public class WalkDisplay extends Display {
         this.gp = gp;
         this.drawerE = drawerE;
         getImage();
+
+        //TEMP
+        System.out.println(drawerE.name);
     }
 
     private void getImage() {
         try{
             File file = new File(Property.res + "/player/" + drawerE.name + "_up1.png");
-            System.out.println(Property.res + "/player/" + drawerE.name + "_up1.png");
             up1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/" + drawerE.name + "up2.png");
+            file = new File(Property.res + "/player/" + drawerE.name + "_up2.png");
             up2 = ImageIO.read(file);
             file = new File(Property.res + "/player/" + drawerE.name + "_down1.png");
             down1 = ImageIO.read(file);
