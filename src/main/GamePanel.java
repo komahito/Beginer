@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int maxWorldCol = 50;
     public int maxWorldRow = 50; // defined by tileM
     // public TileManager tileM = new TileManager(this); // handle mapTileNum[row][col]
+    public Map map = new Map(this, "world01");
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
      public KeyHandler keyH = new KeyHandler(this);

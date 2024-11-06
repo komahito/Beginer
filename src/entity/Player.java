@@ -33,8 +33,8 @@ public class Player extends Entity implements Inventory {
     public ArrayList<SuperObject> inventory = new ArrayList<>();
 
     // TEMP
-    public Actor_Player actor = new Actor_Player();
-    public Drawer_Player drawer = new Drawer_Player(gp, this);
+    public Actor_Player actor;
+    public Drawer_Player drawer;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -48,6 +48,9 @@ public class Player extends Entity implements Inventory {
 
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+
+        this.actor = new Actor_Player();
+        this.drawer = new Drawer_Player(gp, this);
 
         setDefaultValues();
     }

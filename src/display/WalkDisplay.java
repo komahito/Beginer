@@ -12,7 +12,7 @@ import drawer.DrawerfromEntity;
 import main.GamePanel;
 import main.Property;
 
-public class WalkDisplay extends Display {
+public abstract class WalkDisplay extends Display {
     DrawerfromEntity drawerE;
     String direction;
     int spriteCounter = 0;
@@ -22,35 +22,9 @@ public class WalkDisplay extends Display {
     public WalkDisplay (GamePanel gp, DrawerfromEntity drawerE) {
         this.gp = gp;
         this.drawerE = drawerE;
-        getImage();
-
-        //TEMP
-        System.out.println(drawerE.name);
     }
 
-    private void getImage() {
-        try{
-            File file = new File(Property.res + "/player/" + drawerE.name + "_up1.png");
-            up1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/" + drawerE.name + "_up2.png");
-            up2 = ImageIO.read(file);
-            file = new File(Property.res + "/player/" + drawerE.name + "_down1.png");
-            down1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/" + drawerE.name + "_down2.png");
-            down2 = ImageIO.read(file);
-            file = new File(Property.res + "/player/" + drawerE.name + "_left1.png");
-            left1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/" + drawerE.name + "_left2.png");
-            left2 = ImageIO.read(file);
-            file = new File(Property.res + "/player/" + drawerE.name + "_right1.png");
-            right1 = ImageIO.read(file);
-            file = new File(Property.res + "/player/" + drawerE.name + "_right2.png");
-            right2 = ImageIO.read(file);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    protected abstract void getImage();
 
     public void draw(Graphics2D g2) {        
         direction = drawerE.entity.direction;
