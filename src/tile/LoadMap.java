@@ -14,12 +14,13 @@ public class LoadMap {
 
     public LoadMap (Map map) {
         this.map = map;
-        this.loadMap(map.mapName);
+        this.loadMap(map.mapFileName);
+        map.mapTileNum = this.mapTileNum;
     }
 
-    private void loadMap(String mapName){
+    private void loadMap(String mapFileName){
         try{
-            FileReader fr = new FileReader(new File(Property.res + "/maps/" + mapName + "01.png"));
+            FileReader fr = new FileReader(new File(mapFileName));
             BufferedReader br = new BufferedReader(fr);
 
             br.mark(500000000);
@@ -30,7 +31,7 @@ public class LoadMap {
             map.maxWorldCol = this.maxWorldCol;
             map.maxWorldRow = this.maxWorldRow;
             mapTileNum = new int[maxWorldRow][maxWorldCol];
-            map.mapTileNum = this.mapTileNum;
+            //map.mapTileNum = this.mapTileNum;
 
             int row = 0;
             int col = 0;

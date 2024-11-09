@@ -7,7 +7,7 @@ import tile.Map;
 
 public class Drawer_Map extends Drawer {
     public Map map;
-    MapDisplay mapDisplay;
+    private MapDisplay mapDisplay;
 
     public Drawer_Map (GamePanel gp, Map map) {
         this.gp = gp;

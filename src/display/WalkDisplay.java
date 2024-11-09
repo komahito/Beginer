@@ -12,19 +12,21 @@ import drawer.DrawerfromEntity;
 import main.GamePanel;
 import main.Property;
 
-public abstract class WalkDisplay extends Display {
-    DrawerfromEntity drawerE;
+public class WalkDisplay extends Display {
+    public DrawerfromEntity drawerE;
     String direction;
     int spriteCounter = 0;
     int spriteNum = 1;
-    BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+
+    GetWalkImage getTileImage = new GetWalkImage (this);
 
     public WalkDisplay (GamePanel gp, DrawerfromEntity drawerE) {
         this.gp = gp;
         this.drawerE = drawerE;
     }
 
-    protected abstract void getImage();
+    //protected abstract void getImage();
 
     public void draw(Graphics2D g2) {        
         direction = drawerE.entity.direction;

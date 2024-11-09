@@ -69,8 +69,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         //TEMP INI
         this.actors.add(this.player.actor);
+        
+        this.drawers.add(this.map.drawer);
         this.drawers.add(this.player.drawer);
-        //this.drawers.add(this.map.drawer);
     }
 
     public void setUpGame() {

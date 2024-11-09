@@ -9,12 +9,12 @@ public class Map {
     public OBJ_MapDoor inDoor;
     public OBJ_MapDoor outDoor;
 
-    public Drawer drawer = new Drawer_Map(gp, this);
+    public Drawer drawer;
     
     public LoadMap loadMap;
     public LoadTile loadTile;
     
-    public String mapName;
+    public String mapFileName;
 
     public int maxWorldCol, maxWorldRow;
     public int[][] mapTileNum;
@@ -23,7 +23,9 @@ public class Map {
 
     public Map(GamePanel gp, String mapName) { // ex name "world01"
         this.gp = gp;
-        this.mapName = main.Property.res + "/maps/" + mapName + ".txt";
+        this.mapFileName = main.Property.res + "/maps/" + mapName + ".txt";
+        
+        this.drawer = new Drawer_Map(gp, this);
 
         loadMap = new LoadMap(this);
         loadTile = new LoadTile(this);
