@@ -19,11 +19,13 @@ public class WalkDisplay extends Display {
     int spriteNum = 1;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
 
-    GetWalkImage getTileImage = new GetWalkImage (this);
+    private GetWalkImage getWalkImage;
 
     public WalkDisplay (GamePanel gp, DrawerfromEntity drawerE) {
         this.gp = gp;
         this.drawerE = drawerE;
+
+        this.getWalkImage = new GetWalkImage(this);
     }
 
     //protected abstract void getImage();
