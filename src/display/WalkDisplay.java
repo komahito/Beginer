@@ -28,11 +28,26 @@ public class WalkDisplay extends Display {
         this.getWalkImage = new GetWalkImage(this);
     }
 
-    //protected abstract void getImage();
-
     public void draw(Graphics2D g2) {        
         direction = drawerE.entity.direction;
         BufferedImage image = null;
+
+        spriteCounter ++;
+        /* When walkDisplay.draw() is called, spriteCounter is incremented everytime.
+         * So this class objects should be called only when walking.
+         * 
+         * There is no manipulation of checking collision in Display class. 
+         *
+         */
+
+        if (spriteCounter > 13) {
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
 
         switch(direction){
             case "up":
