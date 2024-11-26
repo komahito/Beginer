@@ -49,7 +49,7 @@ public class Player extends Entity implements Inventory {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
-        this.actor = new Actor_Player();
+        this.actor = new Actor_Player(this.gp, this.keyH, this);
         this.drawer = new Drawer_Player(gp, this);
 
         setDefaultValues();
