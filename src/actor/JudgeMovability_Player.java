@@ -1,4 +1,6 @@
-package main;
+package actor;
+
+import main.KeyHandler;
 
 public class JudgeMovability_Player extends JudgeMovability {
     Actor_Player actor_Player;

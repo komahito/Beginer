@@ -1,12 +1,14 @@
-package main;
+package actor;
 
+import action.Action;
 import entity.Entity;
+import main.GamePanel;
 
 public abstract class Actor {
     protected GamePanel gp;
-    protected Entity entity;
-    protected DefineDirection defineDirection;
-    protected JudgeMovability judgeMovability;
+    public Entity entity;
+    public DefineDirection defineDirection;
+    public JudgeMovability judgeMovability;
 
     public abstract boolean energyIsEmp ();
     public abstract Action takeTurn ();

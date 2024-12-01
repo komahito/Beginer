@@ -1,18 +1,18 @@
 package entity;
 
-import main.Action;
-import main.Actor;
-import main.Actor_Player;
 import main.GamePanel;
 import main.KeyHandler;
 import main.Property;
-import main.WalkAction;
 import object.OBJ_Chest;
 import object.OBJ_Key;
 import object.SuperObject;
 
 import javax.imageio.ImageIO;
 
+import action.Action;
+import action.WalkAction;
+import actor.Actor;
+import actor.Actor_Player;
 import drawer.Drawer_Player;
 
 import java.awt.Graphics2D;

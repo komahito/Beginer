@@ -1,4 +1,7 @@
-package main;
+package actor;
+
+import main.GamePanel;
+import main.KeyHandler;
 
 public class DefineDirection_Player extends DefineDirection {
     private KeyHandler keyH;

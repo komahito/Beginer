@@ -1,4 +1,6 @@
-package main;
+package actor;
+
+import main.GamePanel;
 
 public abstract class DefineDirection {
     protected GamePanel gp;

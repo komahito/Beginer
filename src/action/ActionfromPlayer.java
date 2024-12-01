@@ -1,4 +1,9 @@
-package main;
+package action;
+
+import actor.Actor;
+import actor.Actor_Player;
+import main.GamePanel;
+import main.KeyHandler;
 
 public abstract class ActionfromPlayer extends Action {
     protected KeyHandler keyH;

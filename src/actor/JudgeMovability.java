@@ -1,4 +1,6 @@
-package main;
+package actor;
+
+import main.KeyHandler;
 
 public abstract class JudgeMovability {
     protected Actor actor;

@@ -1,6 +1,8 @@
-package main;
+package action;
 
+import actor.Actor;
 import entity.Entity;
+import main.GamePanel;
 
 public class TileCollisionChecker {
     private GamePanel gp;

@@ -1,4 +1,7 @@
-package main;
+package action;
+
+import actor.Actor;
+import main.GamePanel;
 
 public abstract class Action {
     protected GamePanel gp;

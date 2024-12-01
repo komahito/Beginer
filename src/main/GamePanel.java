@@ -7,6 +7,8 @@ import tile.Map;
 
 import javax.swing.JPanel;
 
+import action.Action;
+import actor.Actor;
 import display.Display;
 import drawer.Drawer;
 

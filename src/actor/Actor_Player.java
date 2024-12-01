@@ -1,7 +1,11 @@
-package main;
+package actor;
 
+import action.Action;
+import action.WalkAction;
 import entity.Entity;
 import entity.Player;
+import main.GamePanel;
+import main.KeyHandler;
 
 public class Actor_Player extends Actor {
     private KeyHandler keyH;
