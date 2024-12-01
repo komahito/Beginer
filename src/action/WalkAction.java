@@ -17,10 +17,9 @@ public class WalkAction extends Action {
         this.walk();
     }
     private void walk () {
-        this.actor.defineDirection.defineDirection();
-
-        if (!gridMoving && this.actor.judgeMovability.judgeMovablity()){
-            //if ((keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed)){
+        if (!gridMoving){
+            if (this.actor.judgeMovability.judgeMovablity()) {
+                this.actor.defineDirection.defineDirection();
                 // if (keyH.upPressed == true) {
                 //     direction = "up";
                 // }
@@ -44,7 +43,7 @@ public class WalkAction extends Action {
                 // interactObject(objIndex);
 
                 gridMoving = true;
-            //}
+            }
         
         } else {
             // IF COLLISION IS FALSE, PLAYER CAN MOVE

@@ -25,6 +25,7 @@ public class Actor_Player extends Actor {
         return false;
     }
     public Action takeTurn () {
+        // in walk state,:
         return this.walkAction;
     }
 }
