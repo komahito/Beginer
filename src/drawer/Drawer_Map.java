@@ -10,7 +10,7 @@ public class Drawer_Map extends Drawer {
     private MapDisplay mapDisplay;
 
     public Drawer_Map (GamePanel gp, Map map) {
-        this.gp = gp;
+        super(gp);
         this.map = map;
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);

@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 
 public class OBJ_Book extends SuperObject implements Movable {
+
+    
     public OBJ_Book (GamePanel gp) {
         this.gp = gp;
         name = "Book";

@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import object.OBJ_Key;
 import object.SuperObject;
 import tile.TileManager;
 import tile.Map;
@@ -51,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
+    public OBJ_Key tstKey = new OBJ_Key(this);
 
     // STATE
     public boolean gameFinished = false;
@@ -73,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.actors.add(this.player.actor);
         
         this.drawers.add(this.map.drawer);
+        this.drawers.add(this.tstKey.drawer);
         this.drawers.add(this.player.drawer);
     }
 

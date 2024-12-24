@@ -18,8 +18,8 @@ public class Actor_Player extends Actor {
         this.player = player;
 
         this.walkAction = new WalkAction(this.gp, this);
-        this.defineDirection = new DefineDirection_Player(gp, keyH, this);
-        this.judgeMovability = new JudgeMovability_Player(keyH, this);
+        this.defineDirection = new DefineDirection_Player(gp, this.keyH, this);
+        this.judgeMovability = new JudgeMovability_Player(this.keyH, this);
     }
     public boolean energyIsEmp () {
         return false;
@@ -27,5 +27,10 @@ public class Actor_Player extends Actor {
     public Action takeTurn () {
         // in walk state,:
         return this.walkAction;
+        // swim
+        // run
+        // reading
+        // organizing luggage
+        // operate machine etc.
     }
 }

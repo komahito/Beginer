@@ -2,6 +2,9 @@ package object;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
+import drawer.DrawerfromObject;
+
 import java.awt.Rectangle;
 
 import entity.Entity;
@@ -11,7 +14,7 @@ import tile.Map;
 
 public abstract class SuperObject {
     public BufferedImage image;
-    public String name;
+    public String name; // Object name. ex)"key".
     public boolean disappear = true;
     public boolean collision = false;
     public int worldX, worldY;
@@ -20,7 +23,7 @@ public abstract class SuperObject {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
 
-    GamePanel gp;
+    protected GamePanel gp;
 
     // adjFlag used when collision check in Player class.
     public boolean adjFlag = false;

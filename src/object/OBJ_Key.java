@@ -3,6 +3,7 @@ package object;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import drawer.Drawer_Key;
 import entity.Entity;
 import entity.Player;
 import main.GamePanel;
@@ -11,8 +12,16 @@ import java.io.File;
 
 public class OBJ_Key extends SuperObject implements Movable {
     public int keyNum = 0;
+    public Drawer_Key drawer;
 
     public OBJ_Key (GamePanel gp) {
+        this.gp = gp;
+
+        this.drawer = new Drawer_Key(gp, this);
+        
+        // TEMP
+        this.worldX = 23 * this.gp.tileSize;
+        this.worldY = 9 * this.gp.tileSize;
         // this.gp = gp;
         // name = "Key";
         // try {

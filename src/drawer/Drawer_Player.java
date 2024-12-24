@@ -5,21 +5,18 @@ import java.awt.image.BufferedImage;
 
 import display.Display;
 import display.WalkDisplay;
-import display.WalkDisplay_Player;
 import entity.Entity;
 import entity.Player;
 import main.GamePanel;
 
 public class Drawer_Player extends DrawerfromEntity {
-    private GamePanel gp;
-    WalkDisplay_Player walkDisplay;
+    private WalkDisplay walkDisplay;
 
     public Drawer_Player (GamePanel gp, Player player) {
-        this.entity = player;
-        this.gp = gp;
+        super(gp, (Entity) player);
         this.name = "boy";
 
-        this.walkDisplay = new WalkDisplay_Player(gp, this);
+        this.walkDisplay = new WalkDisplay(gp, this);
 
         screenX = this.gp.screenWidth / 2 - (this.gp.tileSize / 2);
         screenY = this.gp.screenHeight / 2 - (this.gp.tileSize / 2);

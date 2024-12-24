@@ -15,8 +15,7 @@ public class MapDisplay extends Display {
     private Drawer_Map drawerM;
 
     public MapDisplay (GamePanel gp, Drawer drawer) {
-        this.gp = gp;
-        this.drawer = drawer;
+        super(gp, drawer);
         this.drawerM = (Drawer_Map) drawer;
     }
 

@@ -22,10 +22,11 @@ public class WalkDisplay extends Display {
     private GetWalkImage getWalkImage;
 
     public WalkDisplay (GamePanel gp, DrawerfromEntity drawerE) {
-        this.gp = gp;
+        super(gp, (Drawer) drawerE);
         this.drawerE = drawerE;
 
         this.getWalkImage = new GetWalkImage(this);
+        getWalkImage.getImage();
     }
 
     public void draw(Graphics2D g2) {        
