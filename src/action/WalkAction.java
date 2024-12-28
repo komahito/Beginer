@@ -6,11 +6,13 @@ import main.GamePanel;
 public class WalkAction extends Action {
     private boolean gridMoving;
     private TileCollisionChecker tileCC;
+    private ObjectCollisionChecker objectCC;
     private int pixelCounter = 0;
 
     public WalkAction (GamePanel gp, Actor actor) {
         super(gp, actor);
         this.tileCC = new TileCollisionChecker(gp, this.actor);
+        this.objectCC = new ObjectCollisionChecker(gp, this.actor);
     }
 
     public void perform() {
@@ -36,6 +38,7 @@ public class WalkAction extends Action {
                 // CHECK TILE COLLISION
                 this.actor.entity.collisionOn = false;
                 this.tileCC.checkCollision();
+                this.objectCC.checkCollision();
                 //gp.cChecker.checkTile(this); // いずれマップのインデックスを渡して安定させる。
 
                 // CHECK OBJECT COLLISIOM
