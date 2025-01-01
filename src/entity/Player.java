@@ -56,7 +56,7 @@ public class Player extends Entity implements Inventory {
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * (gp.maxWorldCol / 2 - 3);
+        worldX = gp.tileSize * (gp.maxWorldCol / 2 - 2);
         worldY = gp.tileSize * (gp.maxWorldRow / 2);
         speed = 4;
         direction = "down";

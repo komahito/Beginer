@@ -3,6 +3,7 @@ package action;
 import actor.Actor;
 import entity.Entity;
 import main.GamePanel;
+import object.SuperObject;
 
 public class ObjectCollisionChecker {
     private GamePanel gp;
@@ -14,77 +15,59 @@ public class ObjectCollisionChecker {
     }
 
     public void checkCollision () {
-        System.out.println("Check object collision.");
-    //     int index = 999;
+        SuperObject[][] objectMap = gp.objectMap.objectMap;
 
-    //     for (int i = 0; i < gp.objs.size(); i++){
-    //         // Get entity's solid Area position.
-    //         entity.solidArea.x += entity.worldX;
-    //         entity.solidArea.y += entity.worldY;
+        int entityLeftWorldX = entity.worldX + entity.solidArea.x;
+        int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
+        int entityTopWorldY = entity.worldY + entity.solidArea.y;
+        int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
 
-    //         // Get object's solid Area position.
-    //         gp.objs.get(i).solidArea.x += gp.objs.get(i).worldX;
-    //         gp.objs.get(i).solidArea.y += gp.objs.get(i).worldY;
+        int entityLeftCol = entityLeftWorldX / gp.tileSize;
+        int entityRightCol = entityRightWorldX / gp.tileSize;
+        int entityTopRow = entityTopWorldY / gp.tileSize;
+        int entityBottomRow = entityBottomWorldY / gp.tileSize;
+        
+        SuperObject object1, object2;
+        switch (entity.direction) {
+            case "up":
+                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
 
-    //         switch (entity.direction) {
-    //         case "up":
-    //             entity.solidArea.y -= entity.speed;
-    //             if (entity.solidArea.intersects(gp.objs.get(i).solidArea)) {
-    //                 if (gp.objs.get(i).collision){
-    //                     entity.collisionOn = true;
-    //                 }
-    //                 if (player) {
-    //                     index = i;
-    //                 }
-    //             }
-    //             break;
+                object1 = objectMap[entityTopRow][entityLeftCol];
+                object2 = objectMap[entityTopRow][entityRightCol];
 
-    //         case "down":
-    //             entity.solidArea.y += entity.speed;
-    //             if (entity.solidArea.intersects(gp.objs.get(i).solidArea)) {
-    //                 if (gp.objs.get(i).collision){
-    //                     entity.collisionOn = true;
-    //                 }
-    //                 if (player) {
-    //                     index = i;
-    //                 }
-    //             }
-    //             break;
-
-    //         case "left":
-    //             entity.solidArea.x -= entity.speed;
-    //             if (entity.solidArea.intersects(gp.objs.get(i).solidArea)) {
-    //                 if (gp.objs.get(i).collision){
-    //                     entity.collisionOn = true;
-    //                 }
-    //                 if (player) {
-    //                     index = i;
-    //                 }
-    //             }
-    //             break;
-
-    //         case "right":
-    //             entity.solidArea.x += entity.speed;
-    //             if (entity.solidArea.intersects(gp.objs.get(i).solidArea)) {
-    //                 if (gp.objs.get(i).collision){
-    //                     entity.collisionOn = true;
-    //                 }
-    //                 if (player) {
-    //                     index = i;
-    //                 }
-    //             }
-    //             break;
-    //         }
-
-    //         entity.solidArea.x = entity.solidAreaDefaultX;
-    //         entity.solidArea.y = entity.solidAreaDefaultY;
-
-    //         gp.objs.get(i).solidArea.x = gp.objs.get(i).solidAreaDefaultX;
-    //         gp.objs.get(i).solidArea.y = gp.objs.get(i).solidAreaDefaultY;
+                break;
             
-    //     }
+            case "down":
+                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
 
-    //     return index;
+                object1 = objectMap[entityBottomRow][entityLeftCol];
+                object2 = objectMap[entityBottomRow][entityRightCol];
+
+                break;
+
+            case "right":
+                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
+
+                object1 = objectMap[entityTopRow][entityRightCol];
+                object2 = objectMap[entityBottomRow][entityRightCol];
+                break;
+
+            case "left":
+                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+
+                object1 = objectMap[entityTopRow][entityLeftCol];
+                object2 = objectMap[entityBottomRow][entityLeftCol];
+                break;
+            
+            default:
+                object1 = null;
+                object2 = null;
+                break;
+            
+        }
+        if ((object1 != null && object2 != null) && (object1.collision || object2.collision)) {
+            entity.collisionOn = true;
+        }
 
     }
 

@@ -2,6 +2,7 @@ package main;
 
 import entity.Player;
 import object.OBJ_Key;
+import object.ObjectMap;
 import object.SuperObject;
 import tile.TileManager;
 import tile.Map;
@@ -36,10 +37,11 @@ public class GamePanel extends JPanel implements Runnable {
     public int maxWorldCol = 50;
     public int maxWorldRow = 50; // defined by tileM
     // public TileManager tileM = new TileManager(this); // handle mapTileNum[row][col]
-    public Map map = new Map(this, "world01");
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
-     public KeyHandler keyH = new KeyHandler(this);
+    public Map map = new Map(this, "world01");
+    public ObjectMap objectMap = new ObjectMap(this);
+    public KeyHandler keyH = new KeyHandler(this);
     Thread gameThread;
     // public CollisionChecker cChecker = new CollisionChecker(this);
     // public AssetSetter aSetter = new AssetSetter(this);
@@ -50,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
     //public UI ui = new UI(this);
     //public ChangeWorld cWorld = new ChangeWorld(this);
 
-    //ENTITY AND OBJECT
+    //TMP ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
     public OBJ_Key tstKey = new OBJ_Key(this);
 
@@ -77,6 +79,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.drawers.add(this.map.drawer);
         this.drawers.add(this.tstKey.drawer);
         this.drawers.add(this.player.drawer);
+
+        this.objectMap.add(this.tstKey, 23, 9);
     }
 
     public void setUpGame() {

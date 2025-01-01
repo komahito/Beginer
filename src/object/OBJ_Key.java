@@ -22,6 +22,8 @@ public class OBJ_Key extends SuperObject implements Movable {
         // TEMP
         this.worldX = 23 * this.gp.tileSize;
         this.worldY = 9 * this.gp.tileSize;
+        this.collision = true;
+
         // this.gp = gp;
         // name = "Key";
         // try {

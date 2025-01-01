@@ -16,7 +16,7 @@ public class Map {
     
     public String mapFileName;
 
-    public int maxWorldCol, maxWorldRow;
+    public int maxWorldCol, maxWorldRow; // written by LoadMap.
     public int[][] mapTileNum;
 
     public Tile[] tile;
