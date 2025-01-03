@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -17,6 +18,9 @@ public class KeyHandler implements KeyListener {
     public boolean leftPressed;
 
     public boolean cPressed;
+    // TEMP
+    public boolean ePressed;
+    public boolean qPressed;
 
     // INVENTORY STATE
     public boolean inventoryPressed;
@@ -120,6 +124,13 @@ public class KeyHandler implements KeyListener {
         else if (code == KeyEvent.VK_D) {
             rightPressed = true;
         }
+        // TEMP
+        else if (code == KeyEvent.VK_E) {
+            ePressed = true;
+        }
+        else if (code == KeyEvent.VK_Q) {
+            qPressed = true;
+        }
 
         //     else if (code == KeyEvent.VK_E) {
         //         gp.inventoryState = true;
@@ -156,6 +167,13 @@ public class KeyHandler implements KeyListener {
         }
         else if (code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+        // TEMP
+        else if (code == KeyEvent.VK_E) {
+            ePressed = false;
+        }
+        else if (code == KeyEvent.VK_Q) {
+            qPressed = false;
         }
     }
 }

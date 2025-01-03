@@ -4,6 +4,8 @@ import entity.Player;
 import object.OBJ_Key;
 import object.ObjectMap;
 import object.SuperObject;
+import state.State;
+import state.StateManager;
 import tile.TileManager;
 import tile.Map;
 
@@ -42,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Map map = new Map(this, "world01");
     public ObjectMap objectMap = new ObjectMap(this);
     public KeyHandler keyH = new KeyHandler(this);
+    public StateManager stateM = new StateManager(this);
     Thread gameThread;
     // public CollisionChecker cChecker = new CollisionChecker(this);
     // public AssetSetter aSetter = new AssetSetter(this);
@@ -63,8 +66,8 @@ public class GamePanel extends JPanel implements Runnable {
     public boolean chestState = false;
 
     // TEMP
-    private ArrayList<Actor> actors = new ArrayList<>();
-    private ArrayList<Drawer> drawers = new ArrayList<>(); 
+    public ArrayList<Actor> actors = new ArrayList<>();
+    public ArrayList<Drawer> drawers = new ArrayList<>(); 
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -120,14 +123,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        for (int i = 0; i < this.actors.size(); i++) {
-            Actor actor = this.actors.get(i);
-            if (!actor.energyIsEmp()) {
-                Action action = actor.takeTurn();
-                action.perform();
-            }
-            
-        }
+        State currentState = this.stateM.takeTurn();
+        if (currentState != null) currentState.run();
+        else System.err.println("currenState is null! (*''*)");
         // cWorld.changeMap();
         // player.update();
 
